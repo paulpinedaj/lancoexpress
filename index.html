@@ -40,6 +40,7 @@
             color: var(--text);
             line-height: 1.6;
             transition: var(--transition);
+            padding-bottom: 60px; /* Espacio para el contador promocional */
         }
 
         body.bar-mode {
@@ -939,6 +940,8 @@
         .cart-items {
             padding: 20px;
             flex: 1;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
         }
 
         .empty-cart {
@@ -1275,6 +1278,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-bottom: 20px;
+            margin-top: 15px;
         }
 
         .delivery-option {
@@ -1671,6 +1675,7 @@
 
         .promo-body {
             padding: 20px;
+            position: relative;
         }
 
         .promo-title {
@@ -1816,10 +1821,108 @@
             visibility: visible;
         }
 
+        /* Filtros móviles */
+        .mobile-filters-toggle {
+            display: none;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body.bar-mode .mobile-filters-toggle {
+            background-color: var(--bar-secondary);
+        }
+
+        .mobile-filters-toggle:hover {
+            background-color: #3dbeb5;
+        }
+
+        body.bar-mode .mobile-filters-toggle:hover {
+            background-color: #00c9b8;
+        }
+
+        /* Contador promocional */
+        .promo-counter {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            text-align: center;
+            z-index: 800;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.bar-mode .promo-counter {
+            background: linear-gradient(90deg, var(--bar-primary), var(--bar-secondary));
+        }
+
+        .promo-counter-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .promo-counter-text {
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .counter-timer {
+            display: flex;
+            gap: 5px;
+            font-weight: 700;
+        }
+
+        .counter-unit {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            min-width: 40px;
+            text-align: center;
+        }
+
         /* Responsive */
         @media (max-width: 900px) {
             .container {
                 grid-template-columns: 1fr;
+            }
+
+            .filters {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                z-index: 1100;
+                overflow-y: auto;
+                transition: left 0.3s ease;
+                padding-top: 60px;
+            }
+
+            .filters.active {
+                left: 0;
+            }
+
+            .mobile-filters-toggle {
+                display: flex;
             }
 
             .product-detail-body {
@@ -1828,6 +1931,10 @@
             
             .promo-cards {
                 grid-template-columns: 1fr;
+            }
+
+            .products {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
         }
 
@@ -1852,7 +1959,8 @@
             }
 
             .products {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
             }
 
             .product-meta {
@@ -1872,6 +1980,11 @@
                 left: 10px;
                 right: 10px;
                 justify-content: center;
+            }
+
+            .promo-counter-content {
+                flex-direction: column;
+                gap: 5px;
             }
         }
 
@@ -1915,6 +2028,52 @@
                 padding: 10px 15px;
                 font-size: 0.9rem;
             }
+
+            .promo-counter {
+                padding: 10px;
+            }
+
+            .counter-timer {
+                gap: 3px;
+            }
+
+            .counter-unit {
+                min-width: 30px;
+                padding: 3px 5px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Overlay para filtros móviles */
+        .filters-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1090;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .filters-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Botón cerrar filtros móviles */
+        .close-filters {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            z-index: 10;
         }
     </style>
 </head>
@@ -1963,8 +2122,17 @@
 
     <!-- Contenido principal -->
     <div class="container">
+        <!-- Botón para mostrar filtros en móvil -->
+        <button class="mobile-filters-toggle" id="mobileFiltersToggle">
+            <i class="fas fa-filter"></i> Filtros
+        </button>
+
+        <!-- Overlay para filtros móviles -->
+        <div class="filters-overlay" id="filtersOverlay"></div>
+
         <!-- Filtros -->
-        <aside class="filters">
+        <aside class="filters" id="filtersSidebar">
+            <button class="close-filters" id="closeFilters">&times;</button>
             <h3><i class="fas fa-filter"></i> Filtros</h3>
             
             <div class="filter-group">
@@ -2002,6 +2170,8 @@
                     </label>
                 </div>
             </div>
+
+            <button class="apply-filters-btn" id="applyFilters">Aplicar Filtros</button>
         </aside>
 
         <!-- Sección de promociones (oculta inicialmente) -->
@@ -2228,6 +2398,18 @@
         </div>
     </div>
 
+    <!-- Contador promocional -->
+    <div class="promo-counter">
+        <div class="promo-counter-content">
+            <span class="promo-counter-text" id="promoCounterText">¡Oferta del día! Termina en:</span>
+            <div class="counter-timer">
+                <span class="counter-unit" id="hours">00</span>:
+                <span class="counter-unit" id="minutes">00</span>:
+                <span class="counter-unit" id="seconds">00</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer con redes sociales -->
     <footer>
         <div class="footer-container">
@@ -2439,7 +2621,7 @@
             {
                 id: 11,
                 name: "Margarita Clásica",
-                description: "Tequila, triple sec y jugo de limón fresco. Servida en vaso escarchado con sal y lima.",
+                description: "Tequila, triple sec and jugo de limón fresco. Servida en vaso escarchado con sal y lima.",
                 price: 6500,
                 category: "tequila",
                 images: [
@@ -2654,6 +2836,7 @@
         let swiper = null;
         let currentTab = "products";
         let storeStatusInterval = null;
+        let promoCounterInterval = null;
 
         // Elementos del DOM
         const productsContainer = document.getElementById('productsContainer');
@@ -2703,6 +2886,15 @@
         const statusIndicator = document.getElementById('statusIndicator');
         const statusText = document.getElementById('statusText');
         const countdown = document.getElementById('countdown');
+        const mobileFiltersToggle = document.getElementById('mobileFiltersToggle');
+        const filtersSidebar = document.getElementById('filtersSidebar');
+        const filtersOverlay = document.getElementById('filtersOverlay');
+        const closeFilters = document.getElementById('closeFilters');
+        const applyFilters = document.getElementById('applyFilters');
+        const promoCounterText = document.getElementById('promoCounterText');
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
         const body = document.body;
 
         // Inicializar la tienda
@@ -2713,6 +2905,7 @@
             updateStoreStatus();
             displayPromotions();
             displaySeptemberPromotions();
+            startPromoCounter();
             
             // Iniciar el intervalo para actualizar el estado de la tienda
             storeStatusInterval = setInterval(updateStoreStatus, 60000); // Actualizar cada minuto
@@ -2790,6 +2983,65 @@
                 document.querySelector('[data-tab="profile"]').classList.add('active');
                 switchTab('profile');
             });
+
+            // Filtros móviles
+            mobileFiltersToggle.addEventListener('click', () => {
+                filtersSidebar.classList.add('active');
+                filtersOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeFilters.addEventListener('click', closeMobileFilters);
+            filtersOverlay.addEventListener('click', closeMobileFilters);
+            applyFilters.addEventListener('click', closeMobileFilters);
+        }
+
+        // Cerrar filtros móviles
+        function closeMobileFilters() {
+            filtersSidebar.classList.remove('active');
+            filtersOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Iniciar contador promocional
+        function startPromoCounter() {
+            // Obtener la hora actual
+            const now = new Date();
+            
+            // Establecer el tiempo de finalización de la promoción (23:59:59 del día actual)
+            const endOfDay = new Date();
+            endOfDay.setHours(23, 59, 59, 999);
+            
+            // Calcular la diferencia en segundos
+            let diff = Math.floor((endOfDay - now) / 1000);
+            
+            // Actualizar el contador inmediatamente
+            updatePromoCounter(diff);
+            
+            // Actualizar cada segundo
+            promoCounterInterval = setInterval(() => {
+                diff--;
+                
+                if (diff <= 0) {
+                    clearInterval(promoCounterInterval);
+                    // La promoción ha terminado, puedes hacer algo aquí
+                    promoCounterText.textContent = "¡La oferta del día ha finalizado!";
+                    return;
+                }
+                
+                updatePromoCounter(diff);
+            }, 1000);
+        }
+
+        // Actualizar contador promocional
+        function updatePromoCounter(totalSeconds) {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            hoursElement.textContent = hours.toString().padStart(2, '0');
+            minutesElement.textContent = minutes.toString().padStart(2, '0');
+            secondsElement.textContent = seconds.toString().padStart(2, '0');
         }
 
         // Cambiar entre pestañas
@@ -2800,13 +3052,6 @@
             productsContainer.style.display = 'none';
             promotionsSection.style.display = 'none';
             septemberSection.style.display = 'none';
-            
-            /* Cambiar modo bar si es necesario
-            if (tabName === 'bar') {
-                body.classList.add('bar-mode');
-            } else {
-                body.classList.remove('bar-mode');
-            } */
             
             // Mostrar la sección correspondiente
             if (tabName === 'products' || tabName === 'bar') {
