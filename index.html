@@ -2452,1301 +2452,1302 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
-    <script>
-        // Base de datos de productos
-        const products = [
-            {
-                id: 1,
-                name: "Pizza Margarita",
-                description: "Salsa de tomate, mozzarella y albahaca fresca. Un clásico italiano con ingredientes de la más alta calidad.",
-                price: 6990,
-                category: "pizza",
-                images: [
-                    "https://easyways.cl/storage/20210610095707masa-de-pizza-2.0.jpg",
-                 
-                ],
-                sizes: [
-                    { name: "S", price: 5990, calories: 800 },
-                    { name: "M", price: 6990, calories: 1200 },
-                    { name: "L", price: 8990, calories: 1800 }
-                ],
-                preparationTime: "20-25 min",
-                rating: "4.8/5",
-                weight: "450-950g"
-            },
-            {
-                id: 2,
-                name: "Pizza Pepperoni",
-                description: "Salsa de tomate, mozzarella y pepperoni. El favorito de todos con un toque picante perfecto.",
-                price: 7990,
-                category: "pizza",
-                images: [
-                    "https://www.laespanolaaceites.com/wp-content/uploads/2019/05/pizza-al-ajo-con-tomates-frescos-1080x671.jpg",
-            
-                ],
-                sizes: [
-                    { name: "S", price: 6990, calories: 850 },
-                    { name: "M", price: 7990, calories: 1300 },
-                    { name: "L", price: 9990, calories: 1950 }
-                ],
-                preparationTime: "20-25 min",
-                rating: "4.7/5",
-                weight: "480-1000g"
-            },
-            {
-                id: 3,
-                name: "Sandwich Club",
-                description: "Pollo, tocino, lechuga, tomate y mayonesa. Un sandwich clásico lleno de sabor y texturas.",
-                price: 4990,
-                category: "sandwich",
-                images: [
-                    "https://d36fw6y2wq3bat.cloudfront.net/recipes/sandwich-de-pavo-con-huevo-frito/900/sandwich-de-pavo-con-huevo-frito_version_1653047838.jpg",
-
-                ],
-                calories: 650,
-                preparationTime: "10-15 min",
-                rating: "4.5/5",
-                weight: "320g"
-            },
-            {
-                id: 4,
-                name: "Completo Italiano",
-                description: "Salchicha, palta, tomate y mayonesa. El clásico completo chileno con un toque italiano.",
-                price: 2990,
-                category: "completo",
-                images: [
-                    "https://media-front.elmostrador.cl/2022/05/Enex_upa-completo-700x428.png",
-                ],
-                calories: 520,
-                preparationTime: "8-12 min",
-                rating: "4.6/5",
-                weight: "280g"
-            },
-            {
-                id: 5,
-                name: "Tabla Mixta",
-                description: "Embutidos, quesos, frutos secos y pan. Perfecta para compartir en cualquier ocasión.",
-                price: 12990,
-                category: "tabla",
-                images: [
-                    "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1551504734-323d6677c92e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                ],
-                calories: 1200,
-                preparationTime: "15-20 min",
-                rating: "4.9/5",
-                weight: "800g"
-            },
-            {
-                id: 6,
-                name: "Coca-Cola",
-                description: "Bebida gaseosa Lata 350. Refrescante y perfecta para acompañar cualquier comida.",
-                price: 1500,
-                category: "bebida",
-                images: [
-                    "https://tofuu.getjusto.com/orioneat-local/resized2/khyoMo2z3c7pk2zB2-300-x.webp",
-                ],
-                calories: 200,
-                preparationTime: "2 min",
-                rating: "4.3/5",
-                weight: "500ml"
-            },
-            {
-                id: 7,
-                name: "Pizza Hawaiana",
-                description: "Salsa de tomate, mozzarella, jamón y piña. La combinación perfecta de dulce y salado.",
-                price: 8490,
-                category: "pizza",
-                images: [
-                    "https://imag.bonviveur.com/presentacion-principal-de-la-pizza-hawaiana.webp",
-                ],
-                sizes: [
-                    { name: "S", price: 7490, calories: 900 },
-                    { name: "M", price: 8490, calories: 1400 },
-                    { name: "L", price: 10490, calories: 2100 }
-                ],
-                preparationTime: "20-25 min",
-                rating: "4.6/5",
-                weight: "470-980g"
-            },
-            {
-                id: 8,
-                name: "Sandwich Veggie",
-                description: "Verduras asadas, queso y pesto. Una opción vegetariana llena de sabor y color.",
-                price: 4490,
-                category: "sandwich",
-                images: [
-                    "https://www.layersofhappiness.com/wp-content/uploads/2014/06/My-favorite-veggie-Sandwich-678x1024.jpg",
-                ],
-                calories: 480,
-                preparationTime: "10-15 min",
-                rating: "4.4/5",
-                weight: "300g"
-            },
-            // Productos de bar
-            {
-                id: 9,
-                name: "Cerveza Artesanal",
-                description: "Cerveza rubia artesanal con notas cítricas y amargor balanceado. Elaborada localmente.",
-                price: 3500,
-                category: "cerveza",
-                images: [
-                    "https://cdn.forbes.com.mx/2018/08/Cerveza-artesanal-640x360.jpg",
-                ],
-                sizes: [
-                    { name: "330ml", price: 3500, calories: 150 },
-                    { name: "500ml", price: 5000, calories: 250 },
-                    { name: "1L", price: 8500, calories: 500 }
-                ],
-                preparationTime: "2 min",
-                rating: "4.7/5",
-                weight: "330-1000ml"
-            },
-            {
-                id: 10,
-                name: "Vino Tinto Reserva",
-                description: "Vino tinto reserva con cuerpo, notas de frutos rojos y taninos suaves. Perfecto para carnes.",
-                price: 8990,
-                category: "vino",
-                images: [
-                    "https://www.observador.cl/wp-content/uploads/2019/07/vino-2.jpg",
-                ],
-                calories: 120,
-                preparationTime: "2 min",
-                rating: "4.8/5",
-                weight: "750ml"
-            },
-            {
-                id: 11,
-                name: "Margarita Clásica",
-                description: "Tequila, triple sec and jugo de limón fresco. Servida en vaso escarchado con sal y lima.",
-                price: 6500,
-                category: "tequila",
-                images: [
-                    "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                ],
-                calories: 200,
-                preparationTime: "5 min",
-                rating: "4.9/5",
-                weight: "250ml"
-            },
-            {
-                id: 12,
-                name: "Cuba Libre",
-                description: "Ron, refresco de cola y un toque de lima. Un clásico refrescante para cualquier ocasión.",
-                price: 4500,
-                category: "ron",
-                images: [
-                    "https://spirits-navigator.com/wp-content/uploads/2020/02/88326_w1024h768c1cx243cy194cxt0cyt0cxb599cyb398.jpg",
-                ],
-                calories: 180,
-                preparationTime: "3 min",
-                rating: "4.6/5",
-                weight: "300ml"
-            },
-            {
-                id: 13,
-                name: "Vodka con Energética",
-                description: "Vodka premium mezclado con bebida energética. Ideal para mantener la energía toda la noche.",
-                price: 5500,
-                category: "vodka",
-                images: [
-                    "https://images.unsplash.com/photo-1536935338788-846bb9981813?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                ],
-                calories: 220,
-                preparationTime: "3 min",
-                rating: "4.5/5",
-                weight: "350ml"
-            },
-            {
-                id: 14,
-                name: "Energética Monster",
-                description: "Bebida energética para recuperar fuerzas. Sabor original en lata.",
-                price: 2000,
-                category: "energetica",
-                images: [
-                    "https://foodcom.pl/wp-content/uploads/2023/08/Monster_Energy_green.jpg",
-                ],
-                calories: 110,
-                preparationTime: "1 min",
-                rating: "4.3/5",
-                weight: "500ml"
-            },
-            // Tacos
-            {
-                id: 15,
-                name: "Tacos al Pastor",
-                description: "Tacos de cerdo marinado con piña, cebolla y cilantro. Salsa picante al gusto.",
-                price: 5990,
-                category: "tacos",
-                images: [
-                    "https://comedera.com/wp-content/uploads/sites/9/2017/08/tacos-al-pastor-receta.jpg",
-                ],
-                sizes: [
-                    { name: "3 Unid", price: 5990, calories: 450 },
-                    { name: "5 Unid", price: 8990, calories: 750 },
-                    { name: "8 Unid", price: 12990, calories: 1200 }
-                ],
-                preparationTime: "15-20 min",
-                rating: "4.8/5",
-                weight: "300-800g"
-            },
-            // Hamburguesas
-            {
-                id: 16,
-                name: "Hamburguesa Clásica",
-                description: "Carne de res, queso cheddar, lechuga, tomate y salsa especial. Pan brioche tostado.",
-                price: 6990,
-                category: "hamburguesa",
-                images: [
-                    "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                ],
-                calories: 750,
-                preparationTime: "12-15 min",
-                rating: "4.7/5",
-                weight: "350g"
-            },
-            // Papas fritas
-            {
-                id: 17,
-                name: "Papas Fritas Supreme",
-                description: "Papas fritas crujientes con queso cheddar, tocino y cebollín. Acompañadas de salsa.",
-                price: 3990,
-                category: "papas",
-                images: [
-                    "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                ],
-                sizes: [
-                    { name: "S", price: 2990, calories: 400 },
-                    { name: "M", price: 3990, calories: 600 },
-                    { name: "XL", price: 5490, calories: 900 }
-                ],
-                preparationTime: "10-12 min",
-                rating: "4.6/5",
-                weight: "250-500g"
-            }
-        ];
-
-        // Promociones por día
-        const promotions = [
-            {
-                day: "Lunes",
-                title: "2x1 en Pizzas",
-                description: "Todos los lunes disfruta de nuestras pizzas con la promoción 2x1. Válido hasta las 22:00 hrs.",
-                time: "12:00 - 22:00",
-                products: ["Pizza Margarita", "Pizza Pepperoni", "Pizza Hawaiana"],
-                category: "pizza"
-            },
-            {
-                day: "Martes",
-                title: "Tacos a Mitad de Precio",
-                description: "Los martes son de tacos. Disfruta todos nuestros tacos a mitad de precio.",
-                time: "Todo el día",
-                products: ["Tacos al Pastor", "Tacos de Carnitas", "Tacos Veganos"],
-                category: "tacos"
-            },
-            {
-                day: "Miércoles",
-                title: "Hamburguesa + Papas",
-                description: "Miércoles de combo: Hamburguesa + Papas Fritas + Bebida por solo $7.990.",
-                time: "14:00 - 22:00",
-                products: ["Hamburguesa Clásica", "Papas Fritas Supreme", "Bebida"],
-                category: "hamburguesa"
-            },
-            {
-                day: "Jueves",
-                title: "Jueves de Cerveza",
-                description: "Todas las cervezas artesanales a $2.500. Válido hasta las 00:00 hrs.",
-                time: "18:00 - 00:00",
-                products: ["Cerveza Artesanal Rubia", "Cerveza Artesanal IPA", "Cerveza Artesanal Stout"],
-                category: "cerveza"
-            },
-            {
-                day: "Viernes",
-                title: "Happy Hour",
-                description: "2x1 en todos los tragos durante nuestro happy hour. Perfecto para empezar el fin de semana.",
-                time: "17:00 - 20:00",
-                products: ["Margarita Clásica", "Cuba Libre", "Vodka con Energética"],
-                category: "bar"
-            },
-            {
-                day: "Sábado",
-                title: "Combo Familiar",
-                description: "Sábados de combo familiar: 2 pizzas grandes + 2 bebidas por $19.990.",
-                time: "12:00 - 22:00",
-                products: ["Pizza Familiar", "Bebida 1.5L"],
-                category: "pizza"
-            },
-            {
-                day: "Domingo",
-                title: "Domingo de Postres",
-                description: "Todos los domingos recibe un postre gratis con tu compra superior a $15.000.",
-                time: "Todo el día",
-                products: ["Brownie", "Cheesecake", "Helado"],
-                category: "postres"
-            }
-        ];
-
-        // Promociones especiales de septiembre
-        const septemberPromotions = [
-            {
-                title: "Empanadas de Fiestas Patrias",
-                description: "Empanadas tradicionales de horno con carne, cebolla, huevo y aceitunas. Sabores auténticos chilenos.",
-                price: 1290,
-                time: "Todo septiembre",
-                products: ["Empanada de Pino", "Empanada de Queso", "Empanada de Mariscos"],
-                image: "https://images.unsplash.com/photo-1612892483236-52d32a0e0ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-            },
-            {
-                title: "Terremoto Chileno",
-                description: "El clásico trago chileno: vino pipeño con fernet y helado de piña. ¡Una explosión de sabor!",
-                price: 3500,
-                time: "Todo septiembre",
-                products: ["Terremoto Tradicional", "Terremoto con Frambuesa", "Mini Terremoto"],
-                image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-            },
-            {
-                title: "Completos Patrios",
-                description: "Completos con nuestros sabores chilenos: palta, chucrut, tomate y salsa americana.",
-                price: 1990,
-                time: "Todo septiembre",
-                products: ["Completo Italiano", "Completo Alemán", "Completo Dinámico"],
-                image: "https://media-front.elmostrador.cl/2022/05/Enex_upa-completo-700x428.png"
-            },
-            {
-                title: "Choripán Criollo",
-                description: "Choripán con pebre chileno y chancho en piedra. El sabor auténtico de nuestras fondas.",
-                price: 2490,
-                time: "Todo septiembre",
-                products: ["Choripán Tradicional", "Choripán con Longaniza", "Choripán Vegano"],
-                image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-            }
-        ];
-
-        // Variables globales
-        let cart = [];
-        let favorites = [];
-        let filteredProducts = [...products];
-        let currentProduct = null;
-        let deliveryOption = "pickup";
-        let deliveryPrice = 0;
-        let discount = 0;
-        let swiper = null;
-        let currentTab = "products";
-        let storeStatusInterval = null;
-        let promoCounterInterval = null;
-
-        // Elementos del DOM
-        const productsContainer = document.getElementById('productsContainer');
-        const cartIcon = document.getElementById('cartIcon');
-        const cartModal = document.getElementById('cartModal');
-        const closeCart = document.getElementById('closeCart');
-        const cartItems = document.getElementById('cartItems');
-        const cartTotal = document.getElementById('cartTotal');
-        const cartCount = document.getElementById('cartCount');
-        const checkoutBtn = document.getElementById('checkoutBtn');
-        const notification = document.getElementById('notification');
-        const searchInput = document.getElementById('searchInput');
-        const priceRange = document.getElementById('priceRange');
-        const priceValue = document.getElementById('priceValue');
-        const productDetailModal = document.getElementById('productDetailModal');
-        const closeDetail = document.getElementById('closeDetail');
-        const detailImages = document.getElementById('detailImages');
-        const detailTitle = document.getElementById('detailTitle');
-        const detailPrice = document.getElementById('detailPrice');
-        const detailDescription = document.getElementById('detailDescription');
-        const detailCalories = document.getElementById('detailCalories');
-        const detailTime = document.getElementById('detailTime');
-        const detailRating = document.getElementById('detailRating');
-        const detailWeight = document.getElementById('detailWeight');
-        const detailSizes = document.getElementById('detailSizes');
-        const addToCartDetail = document.getElementById('addToCartDetail');
-        const checkoutModal = document.getElementById('checkoutModal');
-        const closeCheckout = document.getElementById('closeCheckout');
-        const toStep2 = document.getElementById('toStep2');
-        const toStep3 = document.getElementById('toStep3');
-        const continueShopping = document.getElementById('continueShopping');
-        const favoritesBtn = document.getElementById('favoritesBtn');
-        const favoritesCount = document.getElementById('favoritesCount');
-        const deliveryOptions = document.querySelectorAll('.delivery-option');
-        const summarySubtotal = document.getElementById('summarySubtotal');
-        const summaryShipping = document.getElementById('summaryShipping');
-        const summaryDiscount = document.getElementById('summaryDiscount');
-        const summaryTotal = document.getElementById('summaryTotal');
-        const tabs = document.querySelectorAll('.tab');
-        const addressField = document.getElementById('addressField');
-        const userBtn = document.getElementById('userBtn');
-        const categoryFilters = document.getElementById('categoryFilters');
-        const promotionsSection = document.getElementById('promotionsSection');
-        const promoCards = document.getElementById('promoCards');
-        const septemberSection = document.getElementById('septemberSection');
-        const septemberPromos = document.getElementById('septemberPromos');
-        const statusIndicator = document.getElementById('statusIndicator');
-        const statusText = document.getElementById('statusText');
-        const countdown = document.getElementById('countdown');
-        const mobileFiltersToggle = document.getElementById('mobileFiltersToggle');
-        const filtersSidebar = document.getElementById('filtersSidebar');
-        const filtersOverlay = document.getElementById('filtersOverlay');
-        const closeFilters = document.getElementById('closeFilters');
-        const applyFilters = document.getElementById('applyFilters');
-        const promoCounterText = document.getElementById('promoCounterText');
-        const hoursElement = document.getElementById('hours');
-        const minutesElement = document.getElementById('minutes');
-        const secondsElement = document.getElementById('seconds');
-        const body = document.body;
-        // Inicializar la tienda
-        function initStore() {
-            setupEventListeners();
-            loadUserData();
-            updateStoreStatus();
-            displayPromotions();
-            displaySeptemberPromotions();
-            startPromoCounter();
-            
-            // Filtrar productos al iniciar (en lugar de mostrar todos)
-                updateCategoryFilters();
-
-            // Iniciar el intervalo para actualizar el estado de la tienda
-            storeStatusInterval = setInterval(updateStoreStatus, 60000); // Actualizar cada minuto
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+<script>
+    // Base de datos de productos
+    const products = [
+        {
+            id: 1,
+            name: "Pizza Margarita",
+            description: "Salsa de tomate, mozzarella y albahaca fresca. Un clásico italiano con ingredientes de la más alta calidad.",
+            price: 6990,
+            category: "pizza",
+            images: [
+                "https://recetinas.com/wp-content/uploads/2022/06/pizza-suprema.jpg",
+            ],
+            sizes: [
+                { name: "S", price: 5990, calories: 800 },
+                { name: "M", price: 6990, calories: 1200 },
+                { name: "L", price: 8990, calories: 1800 }
+            ],
+            preparationTime: "20-25 min",
+            rating: "4.8/5",
+            weight: "450-950g"
+        },
+        {
+            id: 2,
+            name: "Pizza Pepperoni",
+            description: "Salsa de tomate, mozzarella y pepperoni. El favorito de todos con un toque picante perfecto.",
+            price: 7990,
+            category: "pizza",
+            images: [
+                "https://www.infobae.com/resizer/v2/KV3JSOOE7FGRHCKMPXXR4ONZ64.jpg?auth=b2d76a3478775e8cce6c9662246e1453ccc74c4b06a70787eecc4b12b6d8d6e5&smart=true&width=1200&height=900&quality=85",
+            ],
+            sizes: [
+                { name: "S", price: 6990, calories: 850 },
+                { name: "M", price: 7990, calories: 1300 },
+                { name: "L", price: 9990, calories: 1950 }
+            ],
+            preparationTime: "20-25 min",
+            rating: "4.7/5",
+            weight: "480-1000g"
+        },
+        {
+            id: 3,
+            name: "Sandwich Club",
+            description: "Pollo, tocino, lechuga, tomate y mayonesa. Un sandwich clásico lleno de sabor y texturas.",
+            price: 4990,
+            category: "sandwich",
+            images: [
+                "https://d36fw6y2wq3bat.cloudfront.net/recipes/sandwich-de-pavo-con-huevo-frito/900/sandwich-de-pavo-con-huevo-frito_version_1653047838.jpg",
+            ],
+            calories: 650,
+            preparationTime: "10-15 min",
+            rating: "4.5/5",
+            weight: "320g"
+        },
+        {
+            id: 4,
+            name: "Completo Italiano",
+            description: "Salchicha, palta, tomate y mayonesa. El clásico completo chileno con un toque italiano.",
+            price: 2990,
+            category: "completo",
+            images: [
+                "https://media-front.elmostrador.cl/2022/05/Enex_upa-completo-700x428.png",
+            ],
+            calories: 520,
+            preparationTime: "8-12 min",
+            rating: "4.6/5",
+            weight: "280g"
+        },
+        {
+            id: 5,
+            name: "Tabla Mixta",
+            description: "Embutidos, quesos, frutos secos y pan. Perfecta para compartir en cualquier ocasión.",
+            price: 12990,
+            category: "tabla",
+            images: [
+                "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1551504734-323d6677c92e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+            ],
+            calories: 1200,
+            preparationTime: "15-20 min",
+            rating: "4.9/5",
+            weight: "800g"
+        },
+        {
+            id: 6,
+            name: "Coca-Cola",
+            description: "Bebida gaseosa Lata 350. Refrescante y perfecta para acompañar cualquier comida.",
+            price: 1500,
+            category: "bebida",
+            images: [
+                "https://tofuu.getjusto.com/orioneat-local/resized2/khyoMo2z3c7pk2zB2-300-x.webp",
+            ],
+            calories: 200,
+            preparationTime: "2 min",
+            rating: "4.3/5",
+            weight: "500ml"
+        },
+        {
+            id: 7,
+            name: "Pizza Hawaiana",
+            description: "Salsa de tomate, mozzarella, jamón y piña. La combinación perfecta de dulce y salado.",
+            price: 8490,
+            category: "pizza",
+            images: [
+                "https://imag.bonviveur.com/presentacion-principal-de-la-pizza-hawaiana.webp",
+            ],
+            sizes: [
+                { name: "S", price: 7490, calories: 900 },
+                { name: "M", price: 8490, calories: 1400 },
+                { name: "L", price: 10490, calories: 2100 }
+            ],
+            preparationTime: "20-25 min",
+            rating: "4.6/5",
+            weight: "470-980g"
+        },
+        {
+            id: 8,
+            name: "Sandwich Veggie",
+            description: "Verduras asadas, queso y pesto. Una opción vegetariana llena de sabor y color.",
+            price: 4490,
+            category: "sandwich",
+            images: [
+                "https://www.layersofhappiness.com/wp-content/uploads/2014/06/My-favorite-veggie-Sandwich-678x1024.jpg",
+            ],
+            calories: 480,
+            preparationTime: "10-15 min",
+            rating: "4.4/5",
+            weight: "300g"
+        },
+        // Productos de bar
+        {
+            id: 9,
+            name: "Cerveza Artesanal",
+            description: "Cerveza rubia artesanal con notas cítricas y amargor balanceado. Elaborada localmente.",
+            price: 3500,
+            category: "cerveza",
+            images: [
+                "https://cdn.forbes.com.mx/2018/08/Cerveza-artesanal-640x360.jpg",
+            ],
+            sizes: [
+                { name: "330ml", price: 3500, calories: 150 },
+                { name: "500ml", price: 5000, calories: 250 },
+                { name: "1L", price: 8500, calories: 500 }
+            ],
+            preparationTime: "2 min",
+            rating: "4.7/5",
+            weight: "330-1000ml"
+        },
+        {
+            id: 10,
+            name: "Vino Tinto Reserva",
+            description: "Vino tinto reserva con cuerpo, notas de frutos rojos y taninos suaves. Perfecto para carnes.",
+            price: 8990,
+            category: "vino",
+            images: [
+                "https://www.observador.cl/wp-content/uploads/2019/07/vino-2.jpg",
+            ],
+            calories: 120,
+            preparationTime: "2 min",
+            rating: "4.8/5",
+            weight: "750ml"
+        },
+        {
+            id: 11,
+            name: "Margarita Clásica",
+            description: "Tequila, triple sec and jugo de limón fresco. Servida en vaso escarchado con sal y lima.",
+            price: 6500,
+            category: "tequila",
+            images: [
+                "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+            ],
+            calories: 200,
+            preparationTime: "5 min",
+            rating: "4.9/5",
+            weight: "250ml"
+        },
+        {
+            id: 12,
+            name: "Cuba Libre",
+            description: "Ron, refresco de cola y un toque de lima. Un clásico refrescante para cualquier ocasión.",
+            price: 4500,
+            category: "ron",
+            images: [
+                "https://spirits-navigator.com/wp-content/uploads/2020/02/88326_w1024h768c1cx243cy194cxt0cyt0cxb599cyb398.jpg",
+            ],
+            calories: 180,
+            preparationTime: "3 min",
+            rating: "4.6/5",
+            weight: "300ml"
+        },
+        {
+            id: 13,
+            name: "Vodka con Energética",
+            description: "Vodka premium mezclado con bebida energética. Ideal para mantener la energía toda la noche.",
+            price: 5500,
+            category: "vodka",
+            images: [
+                "https://images.unsplash.com/photo-1536935338788-846bb9981813?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+            ],
+            calories: 220,
+            preparationTime: "3 min",
+            rating: "4.5/5",
+            weight: "350ml"
+        },
+        {
+            id: 14,
+            name: "Energética Monster",
+            description: "Bebida energética para recuperar fuerzas. Sabor original en lata.",
+            price: 2000,
+            category: "energetica",
+            images: [
+                "https://foodcom.pl/wp-content/uploads/2023/08/Monster_Energy_green.jpg",
+            ],
+            calories: 110,
+            preparationTime: "1 min",
+            rating: "4.3/5",
+            weight: "500ml"
+        },
+        // Tacos
+        {
+            id: 15,
+            name: "Tacos al Pastor",
+            description: "Tacos de cerdo marinado con piña, cebolla y cilantro. Salsa picante al gusto.",
+            price: 5990,
+            category: "tacos",
+            images: [
+                "https://content-cocina.lecturas.com/medio/2024/09/24/tacos-mexicanos-istock-1146906219_81e9dead_iStock_240924110357_1200x1200.jpg",
+            ],
+            sizes: [
+                { name: "3 Unid", price: 5990, calories: 450 },
+                { name: "5 Unid", price: 8990, calories: 750 },
+                { name: "8 Unid", price: 12990, calories: 1200 }
+            ],
+            preparationTime: "15-20 min",
+            rating: "4.8/5",
+            weight: "300-800g"
+        },
+        // Hamburguesas
+        {
+            id: 16,
+            name: "Hamburguesa Clásica",
+            description: "Carne de res, queso cheddar, lechuga, tomate y salsa especial. Pan brioche tostado.",
+            price: 6990,
+            category: "hamburguesa",
+            images: [
+                "https://store.vinals1906.com/wp-content/uploads/Burguer_perfectserve-1.jpg",
+            ],
+            calories: 750,
+            preparationTime: "12-15 min",
+            rating: "4.7/5",
+            weight: "350g"
+        },
+        // Papas fritas
+        {
+            id: 17,
+            name: "Papas Fritas ",
+            description: "Papas fritas crujientes",
+            price: 3990,
+            category: "papas",
+            images: [
+                "https://www.infobae.com/new-resizer/A1Gj2XFeHTTxw4eMj1lsgygMZPk=/arc-anglerfish-arc2-prod-infobae/public/I46WQXM4RVDTZNRSIGKISSSSDM.jpg",
+            ],
+            sizes: [
+                { name: "S", price: 2990, calories: 400 },
+                { name: "M", price: 3990, calories: 600 },
+                { name: "XL", price: 5490, calories: 900 }
+            ],
+            preparationTime: "10-12 min",
+            rating: "4.6/5",
+            weight: "250-500g"
         }
-        // Configurar event listeners
-        function setupEventListeners() {
-            cartIcon.addEventListener('click', () => cartModal.classList.add('open'));
-            closeCart.addEventListener('click', () => cartModal.classList.remove('open'));
-            checkoutBtn.addEventListener('click', openCheckout);
-            
-            // Filtros
-            searchInput.addEventListener('input', filterProducts);
-            priceRange.addEventListener('input', () => {
-                priceValue.textContent = priceRange.value;
-                filterProducts();
-            });
-            
-            /**document.querySelectorAll('input[name="category"]').forEach(checkbox => {
-                checkbox.addEventListener('change', filterProducts);
-            });**/
-            
-            document.querySelectorAll('input[name="sort"]').forEach(radio => {
-                radio.addEventListener('change', filterProducts);
-            });
-            
-            // Modal de detalle
-            closeDetail.addEventListener('click', () => productDetailModal.classList.remove('open'));
-            
-            // Checkout
-            closeCheckout.addEventListener('click', () => checkoutModal.classList.remove('open'));
-            toStep2.addEventListener('click', () => changeCheckoutStep(2));
-            toStep3.addEventListener('click', processPayment);
-            continueShopping.addEventListener('click', () => {
-                checkoutModal.classList.remove('open');
-                cart = [];
-                updateCart();
-                saveUserData();
-            });
-            
-            // Opciones de entrega
-            deliveryOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    deliveryOptions.forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                    deliveryOption = option.dataset.type;
-                    deliveryPrice = parseInt(option.dataset.price);
-                    
-                    // Mostrar u ocultar campo de dirección
-                    if (deliveryOption === 'delivery' || deliveryOption === 'robot') {
-                        addressField.classList.add('visible');
-                    } else {
-                        addressField.classList.remove('visible');
-                    }
-                    
-                    updateCheckoutSummary();
-                });
-            });
-            
-            // Favoritos
-            favoritesBtn.addEventListener('click', showFavorites);
-            
-            // Tabs de navegación
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    switchTab(tab.dataset.tab);
-                });
-            });
+    ];
 
-            // Botón de usuario
-            userBtn.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                document.querySelector('[data-tab="profile"]').classList.add('active');
-                switchTab('profile');
-            });
-
-            // Filtros móviles
-            mobileFiltersToggle.addEventListener('click', () => {
-                filtersSidebar.classList.add('active');
-                filtersOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-
-            closeFilters.addEventListener('click', closeMobileFilters);
-            filtersOverlay.addEventListener('click', closeMobileFilters);
-            applyFilters.addEventListener('click', closeMobileFilters);
+    // Promociones por día
+    const promotions = [
+        {
+            day: "Lunes",
+            title: "2x1 en Pizzas",
+            description: "Todos los lunes disfruta de nuestras pizzas con la promoción 2x1. Válido hasta las 22:00 hrs.",
+            time: "12:00 - 22:00",
+            products: ["Pizza Margarita", "Pizza Pepperoni", "Pizza Hawaiana"],
+            category: "pizza"
+        },
+        {
+            day: "Martes",
+            title: "Tacos a Mitad de Precio",
+            description: "Los martes son de tacos. Disfruta todos nuestros tacos a mitad de precio.",
+            time: "Todo el día",
+            products: ["Tacos al Pastor", "Tacos de Carnitas", "Tacos Veganos"],
+            category: "tacos"
+        },
+        {
+            day: "Miércoles",
+            title: "Hamburguesa + Papas",
+            description: "Miércoles de combo: Hamburguesa + Papas Fritas + Bebida por solo $7.990.",
+            time: "14:00 - 22:00",
+            products: ["Hamburguesa Clásica", "Papas Fritas Supreme", "Bebida"],
+            category: "hamburguesa"
+        },
+        {
+            day: "Jueves",
+            title: "Jueves de Cerveza",
+            description: "Todas las cervezas artesanales a $2.500. Válido hasta las 00:00 hrs.",
+            time: "18:00 - 00:00",
+            products: ["Cerveza Artesanal Rubia", "Cerveza Artesanal IPA", "Cerveza Artesanal Stout"],
+            category: "cerveza"
+        },
+        {
+            day: "Viernes",
+            title: "Happy Hour",
+            description: "2x1 en todos los tragos durante nuestro happy hour. Perfecto para empezar el fin de semana.",
+            time: "17:00 - 20:00",
+            products: ["Margarita Clásica", "Cuba Libre", "Vodka con Energética"],
+            category: "bar"
+        },
+        {
+            day: "Sábado",
+            title: "Combo Familiar",
+            description: "Sábados de combo familiar: 2 pizzas grandes + 2 bebidas por $19.990.",
+            time: "12:00 - 22:00",
+            products: ["Pizza Familiar", "Bebida 1.5L"],
+            category: "pizza"
+        },
+        {
+            day: "Domingo",
+            title: "Domingo de Postres",
+            description: "Todos los domingos recibe un postre gratis con tu compra superior a $15.000.",
+            time: "Todo el día",
+            products: ["Brownie", "Cheesecake", "Helado"],
+            category: "postres"
         }
+    ];
 
-        // Cerrar filtros móviles
-        function closeMobileFilters() {
-            filtersSidebar.classList.remove('active');
-            filtersOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+    // Promociones especiales de septiembre
+    const septemberPromotions = [
+        {
+            title: "Empanadas de Fiestas Patrias",
+            description: "Empanadas tradicionales de horno con carne, cebolla, huevo y aceitunas. Sabores auténticos chilenos.",
+            price: 1290,
+            time: "Todo septiembre",
+            products: ["Empanada de Pino", "Empanada de Queso", "Empanada de Mariscos"],
+            image: "https://images.unsplash.com/photo-1612892483236-52d32a0e0ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+        },
+        {
+            title: "Terremoto Chileno",
+            description: "El clásico trago chileno: vino pipeño con fernet y helado de piña. ¡Una explosión de sabor!",
+            price: 3500,
+            time: "Todo septiembre",
+            products: ["Terremoto Tradicional", "Terremoto con Frambuesa", "Mini Terremoto"],
+            image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+        },
+        {
+            title: "Completos Patrios",
+            description: "Completos con nuestros sabores chilenos: palta, chucrut, tomate y salsa americana.",
+            price: 1990,
+            time: "Todo septiembre",
+            products: ["Completo Italiano", "Completo Alemán", "Completo Dinámico"],
+            image: "https://media-front.elmostrador.cl/2022/05/Enex_upa-completo-700x428.png"
+        },
+        {
+            title: "Choripán Criollo",
+            description: "Choripán con pebre chileno y chancho en piedra. El sabor auténtico de nuestras fondas.",
+            price: 2490,
+            time: "Todo septiembre",
+            products: ["Choripán Tradicional", "Choripán con Longaniza", "Choripán Vegano"],
+            image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
         }
+    ];
 
-        // Iniciar contador promocional
-        function startPromoCounter() {
-            // Obtener la hora actual
-            const now = new Date();
-            
-            // Establecer el tiempo de finalización de la promoción (23:59:59 del día actual)
-            const endOfDay = new Date();
-            endOfDay.setHours(23, 59, 59, 999);
-            
-            // Calcular la diferencia en segundos
-            let diff = Math.floor((endOfDay - now) / 1000);
-            
-            // Actualizar el contador inmediatamente
-            updatePromoCounter(diff);
-            
-            // Actualizar cada segundo
-            promoCounterInterval = setInterval(() => {
-                diff--;
+    // Variables globales
+    let cart = [];
+    let favorites = [];
+    let filteredProducts = [...products];
+    let currentProduct = null;
+    let deliveryOption = "pickup";
+    let deliveryPrice = 0;
+    let discount = 0;
+    let swiper = null;
+    let currentTab = "products";
+    let storeStatusInterval = null;
+    let promoCounterInterval = null;
+
+    // Elementos del DOM
+    const productsContainer = document.getElementById('productsContainer');
+    const cartIcon = document.getElementById('cartIcon');
+    const cartModal = document.getElementById('cartModal');
+    const closeCart = document.getElementById('closeCart');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartCount = document.getElementById('cartCount');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const notification = document.getElementById('notification');
+    const searchInput = document.getElementById('searchInput');
+    const priceRange = document.getElementById('priceRange');
+    const priceValue = document.getElementById('priceValue');
+    const productDetailModal = document.getElementById('productDetailModal');
+    const closeDetail = document.getElementById('closeDetail');
+    const detailImages = document.getElementById('detailImages');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailPrice = document.getElementById('detailPrice');
+    const detailDescription = document.getElementById('detailDescription');
+    const detailCalories = document.getElementById('detailCalories');
+    const detailTime = document.getElementById('detailTime');
+    const detailRating = document.getElementById('detailRating');
+    const detailWeight = document.getElementById('detailWeight');
+    const detailSizes = document.getElementById('detailSizes');
+    const addToCartDetail = document.getElementById('addToCartDetail');
+    const checkoutModal = document.getElementById('checkoutModal');
+    const closeCheckout = document.getElementById('closeCheckout');
+    const toStep2 = document.getElementById('toStep2');
+    const toStep3 = document.getElementById('toStep3');
+    const continueShopping = document.getElementById('continueShopping');
+    const favoritesBtn = document.getElementById('favoritesBtn');
+    const favoritesCount = document.getElementById('favoritesCount');
+    const deliveryOptions = document.querySelectorAll('.delivery-option');
+    const summarySubtotal = document.getElementById('summarySubtotal');
+    const summaryShipping = document.getElementById('summaryShipping');
+    const summaryDiscount = document.getElementById('summaryDiscount');
+    const summaryTotal = document.getElementById('summaryTotal');
+    const tabs = document.querySelectorAll('.tab');
+    const addressField = document.getElementById('addressField');
+    const userBtn = document.getElementById('userBtn');
+    const categoryFilters = document.getElementById('categoryFilters');
+    const promotionsSection = document.getElementById('promotionsSection');
+    const promoCards = document.getElementById('promoCards');
+    const septemberSection = document.getElementById('septemberSection');
+    const septemberPromos = document.getElementById('septemberPromos');
+    const statusIndicator = document.getElementById('statusIndicator');
+    const statusText = document.getElementById('statusText');
+    const countdown = document.getElementById('countdown');
+    const mobileFiltersToggle = document.getElementById('mobileFiltersToggle');
+    const filtersSidebar = document.getElementById('filtersSidebar');
+    const filtersOverlay = document.getElementById('filtersOverlay');
+    const closeFilters = document.getElementById('closeFilters');
+    const applyFilters = document.getElementById('applyFilters');
+    const promoCounterText = document.getElementById('promoCounterText');
+    const hoursElement = document.getElementById('hours');
+    const minutesElement = document.getElementById('minutes');
+    const secondsElement = document.getElementById('seconds');
+    const body = document.body;
+
+    // Función para formatear precios en formato chileno
+    function formatPrice(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    // Inicializar la tienda
+    function initStore() {
+        setupEventListeners();
+        loadUserData();
+        updateStoreStatus();
+        displayPromotions();
+        displaySeptemberPromotions();
+        startPromoCounter();
+        
+        // Filtrar productos al iniciar (en lugar de mostrar todos)
+        updateCategoryFilters();
+
+        // Iniciar el intervalo para actualizar el estado de la tienda
+        storeStatusInterval = setInterval(updateStoreStatus, 60000); // Actualizar cada minuto
+    }
+
+    // Configurar event listeners
+    function setupEventListeners() {
+        cartIcon.addEventListener('click', () => cartModal.classList.add('open'));
+        closeCart.addEventListener('click', () => cartModal.classList.remove('open'));
+        checkoutBtn.addEventListener('click', openCheckout);
+        
+        // Filtros
+        searchInput.addEventListener('input', filterProducts);
+        priceRange.addEventListener('input', () => {
+            priceValue.textContent = formatPrice(priceRange.value);
+            filterProducts();
+        });
+        
+        document.querySelectorAll('input[name="sort"]').forEach(radio => {
+            radio.addEventListener('change', filterProducts);
+        });
+        
+        // Modal de detalle
+        closeDetail.addEventListener('click', () => productDetailModal.classList.remove('open'));
+        
+        // Checkout
+        closeCheckout.addEventListener('click', () => checkoutModal.classList.remove('open'));
+        toStep2.addEventListener('click', () => changeCheckoutStep(2));
+        toStep3.addEventListener('click', processPayment);
+        continueShopping.addEventListener('click', () => {
+            checkoutModal.classList.remove('open');
+            cart = [];
+            updateCart();
+            saveUserData();
+        });
+        
+        // Opciones de entrega
+        deliveryOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                deliveryOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                deliveryOption = option.dataset.type;
+                deliveryPrice = parseInt(option.dataset.price);
                 
-                if (diff <= 0) {
-                    clearInterval(promoCounterInterval);
-                    // La promoción ha terminado, puedes hacer algo aquí
-                    promoCounterText.textContent = "¡La oferta del día ha finalizado!";
-                    return;
+                // Mostrar u ocultar campo de dirección
+                if (deliveryOption === 'delivery' || deliveryOption === 'robot') {
+                    addressField.classList.add('visible');
+                } else {
+                    addressField.classList.remove('visible');
                 }
                 
-                updatePromoCounter(diff);
-            }, 1000);
-        }
+                updateCheckoutSummary();
+            });
+        });
+        
+        // Favoritos
+        favoritesBtn.addEventListener('click', showFavorites);
+        
+        // Tabs de navegación
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                switchTab(tab.dataset.tab);
+            });
+        });
 
-        // Actualizar contador promocional
-        function updatePromoCounter(totalSeconds) {
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-            
-            hoursElement.textContent = hours.toString().padStart(2, '0');
-            minutesElement.textContent = minutes.toString().padStart(2, '0');
-            secondsElement.textContent = seconds.toString().padStart(2, '0');
-        }
+        // Botón de usuario
+        userBtn.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            document.querySelector('[data-tab="profile"]').classList.add('active');
+            switchTab('profile');
+        });
 
-        // Cambiar entre pestañas
-        function switchTab(tabName) {
-            currentTab = tabName;
+        // Filtros móviles
+        mobileFiltersToggle.addEventListener('click', () => {
+            filtersSidebar.classList.add('active');
+            filtersOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeFilters.addEventListener('click', closeMobileFilters);
+        filtersOverlay.addEventListener('click', closeMobileFilters);
+        applyFilters.addEventListener('click', closeMobileFilters);
+    }
+
+    // Cerrar filtros móviles
+    function closeMobileFilters() {
+        filtersSidebar.classList.remove('active');
+        filtersOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Iniciar contador promocional
+    function startPromoCounter() {
+        // Obtener la hora actual
+        const now = new Date();
+        
+        // Establecer el tiempo de finalización de la promoción (23:59:59 del día actual)
+        const endOfDay = new Date();
+        endOfDay.setHours(23, 59, 59, 999);
+        
+        // Calcular la diferencia en segundos
+        let diff = Math.floor((endOfDay - now) / 1000);
+        
+        // Actualizar el contador inmediatamente
+        updatePromoCounter(diff);
+        
+        // Actualizar cada segundo
+        promoCounterInterval = setInterval(() => {
+            diff--;
             
-            // Ocultar todas las secciones
-            productsContainer.style.display = 'none';
-            promotionsSection.style.display = 'none';
-            septemberSection.style.display = 'none';
-            
-            // Mostrar la sección correspondiente
-            if (tabName === 'products' || tabName === 'bar') {
-                productsContainer.style.display = 'grid';
-                updateCategoryFilters();
-                filterProducts();
-            } else if (tabName === 'promotions') {
-                promotionsSection.style.display = 'block';
-            } else if (tabName === 'september') {
-                septemberSection.style.display = 'block';
-            } else {
-                // Para orders y profile, mostrar mensaje
-                productsContainer.style.display = 'grid';
-                productsContainer.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                        <i class="fas fa-tools" style="font-size: 3rem; color: var(--gray); margin-bottom: 20px;"></i>
-                        <h3>Sección en construcción</h3>
-                        <p>Esta funcionalidad estará disponible pronto.</p>
-                    </div>
-                `;
+            if (diff <= 0) {
+                clearInterval(promoCounterInterval);
+                // La promoción ha terminado, puedes hacer algo aquí
+                promoCounterText.textContent = "¡La oferta del día ha finalizado!";
+                return;
             }
-        }
+            
+            updatePromoCounter(diff);
+        }, 1000);
+    }
 
-        // Actualizar filtros de categoría según la pestaña activa
-        function updateCategoryFilters() {
-            let categories = [];
-            
-            if (currentTab === 'products') {
-                categories = ['pizza', 'sandwich', 'completo', 'tabla', 'tacos', 'hamburguesa', 'papas'];
-            } else if (currentTab === 'bar') {
-                categories = ['cerveza', 'vino', 'tequila', 'ron', 'vodka', 'energetica', 'bebida'];
-            }
-            
-            categoryFilters.innerHTML = '';
-            
-            // Agregar opción "Todas las categorías"
+    // Actualizar contador promocional
+    function updatePromoCounter(totalSeconds) {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        
+        hoursElement.textContent = hours.toString().padStart(2, '0');
+        minutesElement.textContent = minutes.toString().padStart(2, '0');
+        secondsElement.textContent = seconds.toString().padStart(2, '0');
+    }
+
+    // Cambiar entre pestañas
+    function switchTab(tabName) {
+        currentTab = tabName;
+        
+        // Ocultar todas las secciones
+        productsContainer.style.display = 'none';
+        promotionsSection.style.display = 'none';
+        septemberSection.style.display = 'none';
+        
+        // Mostrar la sección correspondiente
+        if (tabName === 'products' || tabName === 'bar') {
+            productsContainer.style.display = 'grid';
+            updateCategoryFilters();
+            filterProducts();
+        } else if (tabName === 'promotions') {
+            promotionsSection.style.display = 'block';
+        } else if (tabName === 'september') {
+            septemberSection.style.display = 'block';
+        } else {
+            // Para orders y profile, mostrar mensaje
+            productsContainer.style.display = 'grid';
+            productsContainer.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                    <i class="fas fa-tools" style="font-size: 3rem; color: var(--gray); margin-bottom: 20px;"></i>
+                    <h3>Sección en construcción</h3>
+                    <p>Esta funcionalidad estará disponible pronto.</p>
+                </div>
+            `;
+        }
+    }
+
+    // Actualizar filtros de categoría según la pestaña activa
+    function updateCategoryFilters() {
+        let categories = [];
+        
+        if (currentTab === 'products') {
+            categories = ['pizza', 'sandwich', 'completo', 'tabla', 'tacos', 'hamburguesa', 'papas'];
+        } else if (currentTab === 'bar') {
+            categories = ['cerveza', 'vino', 'tequila', 'ron', 'vodka', 'energetica', 'bebida'];
+        }
+        
+        categoryFilters.innerHTML = '';
+        
+        // Agregar opción "Todas las categorías"
+        categoryFilters.innerHTML += `
+            <label class="custom-radio">
+                <input type="radio" name="categoryFilter" value="all" checked>
+                <span class="radiomark"></span>
+                Todas las categorías
+            </label>
+        `;
+        
+        // Agregar categorías individuales
+        categories.forEach(category => {
+            const categoryName = getCategoryName(category);
             categoryFilters.innerHTML += `
                 <label class="custom-radio">
-                    <input type="radio" name="categoryFilter" value="all" checked>
+                    <input type="radio" name="categoryFilter" value="${category}">
                     <span class="radiomark"></span>
-                    Todas las categorías
+                    ${categoryName}
                 </label>
             `;
-            
-            // Agregar categorías individuales
-            categories.forEach(category => {
-                const categoryName = getCategoryName(category);
-                categoryFilters.innerHTML += `
-                    <label class="custom-radio">
-                        <input type="radio" name="categoryFilter" value="${category}">
-                        <span class="radiomark"></span>
-                        ${categoryName}
-                    </label>
-                `;
-            });
-            
-            // Agregar event listeners a los nuevos radio buttons
-            document.querySelectorAll('input[name="categoryFilter"]').forEach(radio => {
-                radio.addEventListener('change', filterProducts);
-            });
-            
-            // Filtrar productos inmediatamente después de crear los radio buttons
-            filterProducts();
-        }
+        });
+        
+        // Agregar event listeners a los nuevos radio buttons
+        document.querySelectorAll('input[name="categoryFilter"]').forEach(radio => {
+            radio.addEventListener('change', filterProducts);
+        });
+        
+        // Filtrar productos inmediatamente después de crear los radio buttons
+        filterProducts();
+    }
 
-        // Obtener nombre legible de categoría
-        function getCategoryName(category) {
-            const categoryNames = {
-                'pizza': 'Pizzas',
-                'sandwich': 'Sándwiches',
-                'completo': 'Completos',
-                'tabla': 'Tablas',
-                'tacos': 'Tacos',
-                'hamburguesa': 'Hamburguesas',
-                'papas': 'Papas Fritas',
-                'cerveza': 'Cervezas',
-                'vino': 'Vinos',
-                'tequila': 'Tequila',
-                'ron': 'Ron',
-                'vodka': 'Vodka',
-                'energetica': 'Energéticas',
-                'bebida': 'Bebidas'
-            };
-            
-            return categoryNames[category] || category;
-        }
+    // Obtener nombre legible de categoría
+    function getCategoryName(category) {
+        const categoryNames = {
+            'pizza': 'Pizzas',
+            'sandwich': 'Sándwiches',
+            'completo': 'Completos',
+            'tabla': 'Tablas',
+            'tacos': 'Tacos',
+            'hamburguesa': 'Hamburguesas',
+            'papas': 'Papas Fritas',
+            'cerveza': 'Cervezas',
+            'vino': 'Vinos',
+            'tequila': 'Tequila',
+            'ron': 'Ron',
+            'vodka': 'Vodka',
+            'energetica': 'Energéticas',
+            'bebida': 'Bebidas'
+        };
+        
+        return categoryNames[category] || category;
+    }
 
-        // Mostrar promociones
-        function displayPromotions() {
-            const today = new Date().getDay(); // 0 = Domingo, 1 = Lunes, etc.
-            const todayPromotions = promotions.filter(promo => {
-                const dayIndex = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'].indexOf(promo.day);
-                return dayIndex === today;
-            });
-            
-            promoCards.innerHTML = '';
-            
-            if (todayPromotions.length === 0) {
-                promoCards.innerHTML = '<p>No hay promociones para hoy.</p>';
-                return;
-            }
-            
-            todayPromotions.forEach(promo => {
-                promoCards.innerHTML += `
-                    <div class="promo-card">
-                        <div class="promo-header">
-                            <div class="promo-day">${promo.day}</div>
-                            <div class="promo-time"><i class="fas fa-clock"></i> ${promo.time}</div>
-                        </div>
-                        <div class="promo-body">
-                            <h3 class="promo-title">${promo.title}</h3>
-                            <p class="promo-description">${promo.description}</p>
-                            <div class="promo-products">
-                                ${promo.products.map(product => `<span class="promo-product">${product}</span>`).join('')}
-                            </div>
+    // Mostrar promociones
+    function displayPromotions() {
+        const today = new Date().getDay(); // 0 = Domingo, 1 = Lunes, etc.
+        const todayPromotions = promotions.filter(promo => {
+            const dayIndex = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'].indexOf(promo.day);
+            return dayIndex === today;
+        });
+        
+        promoCards.innerHTML = '';
+        
+        if (todayPromotions.length === 0) {
+            promoCards.innerHTML = '<p>No hay promociones para hoy.</p>';
+            return;
+        }
+        
+        todayPromotions.forEach(promo => {
+            promoCards.innerHTML += `
+                <div class="promo-card">
+                    <div class="promo-header">
+                        <div class="promo-day">${promo.day}</div>
+                        <div class="promo-time"><i class="fas fa-clock"></i> ${promo.time}</div>
+                    </div>
+                    <div class="promo-body">
+                        <h3 class="promo-title">${promo.title}</h3>
+                        <p class="promo-description">${promo.description}</p>
+                        <div class="promo-products">
+                            ${promo.products.map(product => `<span class="promo-product">${product}</span>`).join('')}
                         </div>
                     </div>
-                `;
-            });
-        }
+                </div>
+            `;
+        });
+    }
 
-        // Mostrar promociones de septiembre
-        function displaySeptemberPromotions() {
-            septemberPromos.innerHTML = '';
-            
-            septemberPromotions.forEach(promo => {
-                septemberPromos.innerHTML += `
-                    <div class="promo-card">
-                        <div class="promo-header" style="background: var(--primary);">
-                            <div class="promo-day">Fiestas Patrias</div>
-                            <div class="promo-time"><i class="fas fa-clock"></i> ${promo.time}</div>
+    // Mostrar promociones de septiembre
+    function displaySeptemberPromotions() {
+        septemberPromos.innerHTML = '';
+        
+        septemberPromotions.forEach(promo => {
+            septemberPromos.innerHTML += `
+                <div class="promo-card">
+                    <div class="promo-header" style="background: var(--primary);">
+                        <div class="promo-day">Fiestas Patrias</div>
+                        <div class="promo-time"><i class="fas fa-clock"></i> ${promo.time}</div>
+                    </div>
+                    <div class="promo-body">
+                        <h3 class="promo-title">${promo.title}</h3>
+                        <p class="promo-description">${promo.description}</p>
+                        <div class="promo-products">
+                            ${promo.products.map(product => `<span class="promo-product">${product}</span>`).join('')}
                         </div>
-                        <div class="promo-body">
-                            <h3 class="promo-title">${promo.title}</h3>
-                            <p class="promo-description">${promo.description}</p>
-                            <div class="promo-products">
-                                ${promo.products.map(product => `<span class="promo-product">${product}</span>`).join('')}
-                            </div>
-                            <div style="margin-top: 15px; font-weight: 600; color: var(--primary);">
-                                Precio: $${promo.price}
-                            </div>
+                        <div style="margin-top: 15px; font-weight: 600; color: var(--primary);">
+                            Precio: $${formatPrice(promo.price)}
                         </div>
                     </div>
-                `;
-            });
-        }
+                </div>
+            `;
+        });
+    }
 
-        // Actualizar estado de la tienda (abierto/cerrado)
-        function updateStoreStatus() {
-            const now = new Date();
-            const hour = now.getHours();
-            const minute = now.getMinutes();
+    // Actualizar estado de la tienda (abierto/cerrado)
+    function updateStoreStatus() {
+        const now = new Date();
+        const hour = now.getHours();
+        const minute = now.getMinutes();
+        
+        // Horario de atención: Lunes a Viernes 10:00-22:00, Sábados y Domingos 11:00-23:00
+        let isOpen = false;
+        let closingTime = null;
+        
+        if (now.getDay() >= 1 && now.getDay() <= 5) { // Lunes a Viernes
+            isOpen = hour >= 10 && hour < 22;
+            closingTime = new Date(now);
+            closingTime.setHours(22, 0, 0, 0);
+        } else { // Sábado o Domingo
+            isOpen = hour >= 11 && hour < 23;
+            closingTime = new Date(now);
+            closingTime.setHours(23, 0, 0, 0);
+        }
+        
+        // Actualizar indicador
+        if (isOpen) {
+            statusIndicator.classList.remove('status-closed');
+            statusText.textContent = 'Abierto';
             
-            // Horario de atención: Lunes a Viernes 10:00-22:00, Sábados y Domingos 11:00-23:00
-            let isOpen = false;
-            let closingTime = null;
+            // Calcular tiempo hasta cierre
+            const timeUntilClose = closingTime - now;
+            const hoursUntilClose = Math.floor(timeUntilClose / (1000 * 60 * 60));
+            const minutesUntilClose = Math.floor((timeUntilClose % (1000 * 60 * 60)) / (1000 * 60));
             
+            countdown.textContent = `Cierra en ${hoursUntilClose}h ${minutesUntilClose}m`;
+        } else {
+            statusIndicator.classList.add('status-closed');
+            statusText.textContent = 'Cerrado';
+            
+            // Calcular tiempo hasta apertura
+            let openingTime = new Date(now);
             if (now.getDay() >= 1 && now.getDay() <= 5) { // Lunes a Viernes
-                isOpen = hour >= 10 && hour < 22;
-                closingTime = new Date(now);
-                closingTime.setHours(22, 0, 0, 0);
+                if (hour < 10) {
+                    openingTime.setHours(10, 0, 0, 0);
+                } else {
+                    openingTime.setDate(openingTime.getDate() + 1);
+                    openingTime.setHours(10, 0, 0, 0);
+                }
             } else { // Sábado o Domingo
-                isOpen = hour >= 11 && hour < 23;
-                closingTime = new Date(now);
-                closingTime.setHours(23, 0, 0, 0);
-            }
-            
-            // Actualizar indicador
-            if (isOpen) {
-                statusIndicator.classList.remove('status-closed');
-                statusText.textContent = 'Abierto';
-                
-                // Calcular tiempo hasta cierre
-                const timeUntilClose = closingTime - now;
-                const hoursUntilClose = Math.floor(timeUntilClose / (1000 * 60 * 60));
-                const minutesUntilClose = Math.floor((timeUntilClose % (1000 * 60 * 60)) / (1000 * 60));
-                
-                countdown.textContent = `Cierra en ${hoursUntilClose}h ${minutesUntilClose}m`;
-            } else {
-                statusIndicator.classList.add('status-closed');
-                statusText.textContent = 'Cerrado';
-                
-                // Calcular tiempo hasta apertura
-                let openingTime = new Date(now);
-                if (now.getDay() >= 1 && now.getDay() <= 5) { // Lunes a Viernes
-                    if (hour < 10) {
-                        openingTime.setHours(10, 0, 0, 0);
-                    } else {
-                        openingTime.setDate(openingTime.getDate() + 1);
-                        openingTime.setHours(10, 0, 0, 0);
-                    }
-                } else { // Sábado o Domingo
-                    if (hour < 11) {
+                if (hour < 11) {
+                    openingTime.setHours(11, 0, 0, 0);
+                } else {
+                    openingTime.setDate(openingTime.getDate() + 1);
+                    if (openingTime.getDay() === 0 || openingTime.getDay() === 6) {
                         openingTime.setHours(11, 0, 0, 0);
                     } else {
-                        openingTime.setDate(openingTime.getDate() + 1);
-                        if (openingTime.getDay() === 0 || openingTime.getDay() === 6) {
-                            openingTime.setHours(11, 0, 0, 0);
-                        } else {
-                            openingTime.setHours(10, 0, 0, 0);
-                        }
+                        openingTime.setHours(10, 0, 0, 0);
                     }
                 }
-                
-                const timeUntilOpen = openingTime - now;
-                const hoursUntilOpen = Math.floor(timeUntilOpen / (1000 * 60 * 60));
-                const minutesUntilOpen = Math.floor((timeUntilOpen % (1000 * 60 * 60)) / (1000 * 60));
-                
-                countdown.textContent = `Abre en ${hoursUntilOpen}h ${minutesUntilOpen}m`;
-            }
-        }
-
-        // Inicializar Swiper para el carousel de imágenes
-        function initSwiper() {
-            if (swiper) {
-                swiper.destroy();
-            }
-            swiper = new Swiper(".mySwiper", {
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true
-                }
-            });
-        }
-
-        // Cargar datos de usuario desde localStorage
-        function loadUserData() {
-            const savedCart = localStorage.getItem('cart');
-            const savedFavorites = localStorage.getItem('favorites');
-            
-            if (savedCart) {
-                cart = JSON.parse(savedCart);
-                updateCart();
             }
             
-            if (savedFavorites) {
-                favorites = JSON.parse(savedFavorites);
-                updateFavoritesCount();
-            }
-        }
-
-        // Guardar datos de usuario en localStorage
-        function saveUserData() {
-            localStorage.setItem('cart', JSON.stringify(cart));
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-        }
-
-        // Mostrar productos en el catálogo
-        function displayProducts(productsToShow) {
-            productsContainer.innerHTML = '';
+            const timeUntilOpen = openingTime - now;
+            const hoursUntilOpen = Math.floor(timeUntilOpen / (1000 * 60 * 60));
+            const minutesUntilOpen = Math.floor((timeUntilOpen % (1000 * 60 * 60)) / (1000 * 60));
             
-            if (productsToShow.length === 0) {
-                productsContainer.innerHTML = '<p class="no-products">No se encontraron productos</p>';
-                return;
-            }
-            
-            productsToShow.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.dataset.id = product.id;
-                
-                let sizeOptions = '';
-                if (product.sizes) {
-                    sizeOptions = `
-                        <div class="size-options">
-                            ${product.sizes.map((size, index) => 
-                                `<div class="size-option ${index === 1 ? 'active' : ''}" data-price="${size.price}">${size.name}</div>`
-                            ).join('')}
-                        </div>
-                    `;
-                }
-                
-                const isFavorite = favorites.includes(product.id);
-                
-                productCard.innerHTML = `
-                    <div class="product-image-container">
-                        <img src="${product.images[0]}" alt="${product.name}" class="product-image">
-                        <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${product.id}">
-                            <i class="fas fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">${product.name}</h3>
-                        <p class="product-description">${product.description}</p>
-                        <div class="product-price">$${product.price}</div>
-                        ${sizeOptions}
-                        <button class="add-to-cart" data-id="${product.id}">
-                            <i class="fas fa-shopping-cart"></i> Agregar
-                        </button>
-                    </div>
-                `;
-                
-                productsContainer.appendChild(productCard);
-                
-                // Event listener para el botón de favoritos
-                const favoriteBtn = productCard.querySelector('.favorite-btn');
-                favoriteBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    toggleFavorite(product.id);
-                    favoriteBtn.classList.toggle('active');
-                });
-                
-                // Event listener para los botones de agregar al carrito
-                const addToCartBtn = productCard.querySelector('.add-to-cart');
-                addToCartBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    addToCart(product);
-                });
-                
-                // Event listeners para las opciones de tamaño
-                if (product.sizes) {
-                    const sizeOptions = productCard.querySelectorAll('.size-option');
-                    sizeOptions.forEach((option, index) => {
-                        option.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            sizeOptions.forEach(opt => opt.classList.remove('active'));
-                            option.classList.add('active');
-                            
-                            // Actualizar precio mostrado
-                            const priceElement = productCard.querySelector('.product-price');
-                            priceElement.textContent = `$${product.sizes[index].price}`;
-                        });
-                    });
-                }
-                
-                // Event listener para abrir el detalle del producto
-                productCard.addEventListener('click', () => {
-                    openProductDetail(product);
-                });
-            });
+            countdown.textContent = `Abre en ${hoursUntilOpen}h ${minutesUntilOpen}m`;
         }
+    }
 
-        // Alternar producto en favoritos
-        function toggleFavorite(productId) {
-            const index = favorites.indexOf(productId);
-            if (index === -1) {
-                favorites.push(productId);
-            } else {
-                favorites.splice(index, 1);
+    // Inicializar Swiper para el carousel de imágenes
+    function initSwiper() {
+        if (swiper) {
+            swiper.destroy();
+        }
+        swiper = new Swiper(".mySwiper", {
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true
             }
-            
+        });
+    }
+
+    // Cargar datos de usuario desde localStorage
+    function loadUserData() {
+        const savedCart = localStorage.getItem('cart');
+        const savedFavorites = localStorage.getItem('favorites');
+        
+        if (savedCart) {
+            cart = JSON.parse(savedCart);
+            updateCart();
+        }
+        
+        if (savedFavorites) {
+            favorites = JSON.parse(savedFavorites);
             updateFavoritesCount();
-            saveUserData();
         }
+    }
 
-        // Actualizar contador de favoritos
-        function updateFavoritesCount() {
-            favoritesCount.textContent = favorites.length;
-        }
+    // Guardar datos de usuario en localStorage
+    function saveUserData() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
 
-        // Mostrar productos favoritos
-        function showFavorites() {
-            if (favorites.length === 0) {
-                filteredProducts = [];
-                displayProducts([]);
-                return;
-            }
-            
-            filteredProducts = products.filter(product => favorites.includes(product.id));
-            displayProducts(filteredProducts);
+    // Mostrar productos en el catálogo
+    function displayProducts(productsToShow) {
+        productsContainer.innerHTML = '';
+        
+        if (productsToShow.length === 0) {
+            productsContainer.innerHTML = '<p class="no-products">No se encontraron productos</p>';
+            return;
         }
-
-        // Filtrar productos según criterios
-        function filterProducts() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const maxPrice = parseInt(priceRange.value);
-            const selectedCategory = document.querySelector('input[name="categoryFilter"]:checked').value;
-            const sortOption = document.querySelector('input[name="sort"]:checked').value;
+        
+        productsToShow.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.dataset.id = product.id;
             
-            // Primero filtrar por la pestaña activa
-            let productsToFilter = [...products];
-            if (currentTab === 'products') {
-                productsToFilter = products.filter(product => 
-                    ['pizza', 'sandwich', 'completo', 'tabla', 'tacos', 'hamburguesa', 'papas'].includes(product.category)
-                );
-            } else if (currentTab === 'bar') {
-                productsToFilter = products.filter(product => 
-                    ['cerveza', 'vino', 'tequila', 'ron', 'vodka', 'energetica', 'bebida'].includes(product.category)
-                );
-            }
-            
-            // Luego aplicar los demás filtros
-            filteredProducts = productsToFilter.filter(product => {
-                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
-                                     product.description.toLowerCase().includes(searchTerm);
-                const matchesCategory = selectedCategory === 'all' || selectedCategory === product.category;
-                const matchesPrice = product.price <= maxPrice;
-                
-                return matchesSearch && matchesCategory && matchesPrice;
-            });
-            
-            // Ordenar productos
-            switch(sortOption) {
-                case 'name':
-                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
-                    break;
-                case 'price-asc':
-                    filteredProducts.sort((a, b) => a.price - b.price);
-                    break;
-                case 'price-desc':
-                    filteredProducts.sort((a, b) => b.price - a.price);
-                    break;
-            }
-            
-            displayProducts(filteredProducts);
-        }
-        // Abrir detalle del producto
-        function openProductDetail(product) {
-            currentProduct = product;
-            
-            // Limpiar imágenes anteriores
-            detailImages.innerHTML = '';
-            
-            // Agregar imágenes al carousel
-            product.images.forEach(image => {
-                detailImages.innerHTML += `
-                    <div class="swiper-slide">
-                        <img src="${image}" alt="${product.name}">
+            let sizeOptions = '';
+            if (product.sizes) {
+                sizeOptions = `
+                    <div class="size-options">
+                        ${product.sizes.map((size, index) => 
+                            `<div class="size-option ${index === 1 ? 'active' : ''}" data-price="${size.price}">${size.name}</div>`
+                        ).join('')}
                     </div>
                 `;
-            });
-            
-            // Actualizar información del producto
-            detailTitle.textContent = product.name;
-            detailPrice.textContent = `$${product.price}`;
-            detailDescription.textContent = product.description;
-            
-            // Calorías según tamaño (si aplica)
-            if (product.sizes) {
-                detailCalories.textContent = `${product.sizes[1].calories} cal`;
-            } else {
-                detailCalories.textContent = `${product.calories} cal`;
             }
             
-            detailTime.textContent = product.preparationTime;
-            detailRating.textContent = product.rating;
-            detailWeight.textContent = product.weight;
+            const isFavorite = favorites.includes(product.id);
             
-            // Opciones de tamaño
-            detailSizes.innerHTML = '';
+            productCard.innerHTML = `
+                <div class="product-image-container">
+                    <img src="${product.images[0]}" alt="${product.name}" class="product-image">
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${product.id}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-price">$${formatPrice(product.price)}</div>
+                    ${sizeOptions}
+                    <button class="add-to-cart" data-id="${product.id}">
+                        <i class="fas fa-shopping-cart"></i> Agregar
+                    </button>
+                </div>
+            `;
+            
+            productsContainer.appendChild(productCard);
+            
+            // Event listener para el botón de favoritos
+            const favoriteBtn = productCard.querySelector('.favorite-btn');
+            favoriteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleFavorite(product.id);
+                favoriteBtn.classList.toggle('active');
+            });
+            
+            // Event listener para los botones de agregar al carrito
+            const addToCartBtn = productCard.querySelector('.add-to-cart');
+            addToCartBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                addToCart(product);
+            });
+            
+            // Event listeners para las opciones de tamaño
             if (product.sizes) {
-                product.sizes.forEach((size, index) => {
-                    detailSizes.innerHTML += `
-                        <div class="detail-size-option ${index === 1 ? 'active' : ''}" data-index="${index}">
-                            <span class="size">${size.name}</span>
-                            <span class="price">$${size.price}</span>
-                        </div>
-                    `;
-                });
-                
-                // Event listeners para opciones de tamaño
-                const sizeOptions = detailSizes.querySelectorAll('.detail-size-option');
+                const sizeOptions = productCard.querySelectorAll('.size-option');
                 sizeOptions.forEach((option, index) => {
-                    option.addEventListener('click', () => {
+                    option.addEventListener('click', (e) => {
+                        e.stopPropagation();
                         sizeOptions.forEach(opt => opt.classList.remove('active'));
                         option.classList.add('active');
                         
                         // Actualizar precio mostrado
-                        detailPrice.textContent = `$${product.sizes[index].price}`;
-                        detailCalories.textContent = `${product.sizes[index].calories} cal`;
+                        const priceElement = productCard.querySelector('.product-price');
+                        priceElement.textContent = `$${formatPrice(product.sizes[index].price)}`;
                     });
                 });
             }
             
-            // Reiniciar Swiper
-            initSwiper();
-            
-            // Mostrar modal
-            productDetailModal.classList.add('open');
-        }
-
-        // Agregar producto al carrito
-        function addToCart(product, fromDetail = false) {
-            let selectedSize = null;
-            let finalPrice = product.price;
-            let calories = product.calories || 0;
-            
-            // Si el producto tiene tamaños, obtener el seleccionado
-            if (product.sizes) {
-                let sizeIndex = 1; // Por defecto el tamaño medio
-                
-                if (fromDetail) {
-                    const activeSize = detailSizes.querySelector('.detail-size-option.active');
-                    sizeIndex = parseInt(activeSize.dataset.index);
-                } else {
-                    const productCard = document.querySelector(`.product-card[data-id="${product.id}"]`);
-                    if (productCard) {
-                        const activeSize = productCard.querySelector('.size-option.active');
-                        if (activeSize) {
-                            const sizes = productCard.querySelectorAll('.size-option');
-                            sizeIndex = Array.from(sizes).indexOf(activeSize);
-                        }
-                    }
-                }
-                
-                selectedSize = product.sizes[sizeIndex].name;
-                finalPrice = product.sizes[sizeIndex].price;
-                calories = product.sizes[sizeIndex].calories;
-            }
-            
-            // Buscar si el producto ya está en el carrito
-            const existingItemIndex = cart.findIndex(item => 
-                item.id === product.id && item.size === selectedSize
-            );
-            
-            if (existingItemIndex >= 0) {
-                // Incrementar cantidad si ya existe
-                cart[existingItemIndex].quantity++;
-            } else {
-                // Agregar nuevo item al carrito
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: finalPrice,
-                    image: product.images[0],
-                    size: selectedSize,
-                    calories: calories,
-                    quantity: 1
-                });
-            }
-            
-            updateCart();
-            showNotification();
-            saveUserData();
-            
-            // Si se agregó desde el detalle, cerrar el modal
-            if (fromDetail) {
-                productDetailModal.classList.remove('open');
-            }
-        }
-
-        // Event listener para agregar desde el detalle
-        addToCartDetail.addEventListener('click', () => {
-            if (currentProduct) {
-                addToCart(currentProduct, true);
-            }
+            // Event listener para abrir el detalle del producto
+            productCard.addEventListener('click', () => {
+                openProductDetail(product);
+            });
         });
+    }
 
-        // Mostrar notificación de producto agregado
-        function showNotification() {
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
+    // Alternar producto en favoritos
+    function toggleFavorite(productId) {
+        const index = favorites.indexOf(productId);
+        if (index === -1) {
+            favorites.push(productId);
+        } else {
+            favorites.splice(index, 1);
         }
+        
+        updateFavoritesCount();
+        saveUserData();
+    }
 
-        // Actualizar carrito
-        function updateCart() {
-            cartItems.innerHTML = '';
-            let total = 0;
-            let count = 0;
+    // Actualizar contador de favoritos
+    function updateFavoritesCount() {
+        favoritesCount.textContent = favorites.length;
+    }
+
+    // Mostrar productos favoritos
+    function showFavorites() {
+        if (favorites.length === 0) {
+            filteredProducts = [];
+            displayProducts([]);
+            return;
+        }
+        
+        filteredProducts = products.filter(product => favorites.includes(product.id));
+        displayProducts(filteredProducts);
+    }
+
+    // Filtrar productos según criterios
+    function filterProducts() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const maxPrice = parseInt(priceRange.value);
+        const selectedCategory = document.querySelector('input[name="categoryFilter"]:checked').value;
+        const sortOption = document.querySelector('input[name="sort"]:checked').value;
+        
+        // Primero filtrar por la pestaña activa
+        let productsToFilter = [...products];
+        if (currentTab === 'products') {
+            productsToFilter = products.filter(product => 
+                ['pizza', 'sandwich', 'completo', 'tabla', 'tacos', 'hamburguesa', 'papas'].includes(product.category)
+            );
+        } else if (currentTab === 'bar') {
+            productsToFilter = products.filter(product => 
+                ['cerveza', 'vino', 'tequila', 'ron', 'vodka', 'energetica', 'bebida'].includes(product.category)
+            );
+        }
+        
+        // Luego aplicar los demás filtros
+        filteredProducts = productsToFilter.filter(product => {
+            const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                 product.description.toLowerCase().includes(searchTerm);
+            const matchesCategory = selectedCategory === 'all' || selectedCategory === product.category;
+            const matchesPrice = product.price <= maxPrice;
             
-            if (cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div class="empty-cart">
-                        <i class="fas fa-shopping-cart"></i>
-                        <p>Tu carrito está vacío</p>
+            return matchesSearch && matchesCategory && matchesPrice;
+        });
+        
+        // Ordenar productos
+        switch(sortOption) {
+            case 'name':
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'price-asc':
+                filteredProducts.sort((a, b) => a.price - b.price);
+                break;
+            case 'price-desc':
+                filteredProducts.sort((a, b) => b.price - a.price);
+                break;
+        }
+        
+        displayProducts(filteredProducts);
+    }
+
+    // Abrir detalle del producto
+    function openProductDetail(product) {
+        currentProduct = product;
+        
+        // Limpiar imágenes anteriores
+        detailImages.innerHTML = '';
+        
+        // Agregar imágenes al carousel
+        product.images.forEach(image => {
+            detailImages.innerHTML += `
+                <div class="swiper-slide">
+                    <img src="${image}" alt="${product.name}">
+                </div>
+            `;
+        });
+        
+        // Actualizar información del producto
+        detailTitle.textContent = product.name;
+        detailPrice.textContent = `$${formatPrice(product.price)}`;
+        detailDescription.textContent = product.description;
+        
+        // Calorías según tamaño (si aplica)
+        if (product.sizes) {
+            detailCalories.textContent = `${product.sizes[1].calories} cal`;
+        } else {
+            detailCalories.textContent = `${product.calories} cal`;
+        }
+        
+        detailTime.textContent = product.preparationTime;
+        detailRating.textContent = product.rating;
+        detailWeight.textContent = product.weight;
+        
+        // Opciones de tamaño
+        detailSizes.innerHTML = '';
+        if (product.sizes) {
+            product.sizes.forEach((size, index) => {
+                detailSizes.innerHTML += `
+                    <div class="detail-size-option ${index === 1 ? 'active' : ''}" data-index="${index}">
+                        <span class="size">${size.name}</span>
+                        <span class="price">$${formatPrice(size.price)}</span>
                     </div>
                 `;
+            });
+            
+            // Event listeners para opciones de tamaño
+            const sizeOptions = detailSizes.querySelectorAll('.detail-size-option');
+            sizeOptions.forEach((option, index) => {
+                option.addEventListener('click', () => {
+                    sizeOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    
+                    // Actualizar precio mostrado
+                    detailPrice.textContent = `$${formatPrice(product.sizes[index].price)}`;
+                    detailCalories.textContent = `${product.sizes[index].calories} cal`;
+                });
+            });
+        }
+        
+        // Reiniciar Swiper
+        initSwiper();
+        
+        // Mostrar modal
+        productDetailModal.classList.add('open');
+    }
+
+    // Agregar producto al carrito
+    function addToCart(product, fromDetail = false) {
+        let selectedSize = null;
+        let finalPrice = product.price;
+        let calories = product.calories || 0;
+        
+        // Si el producto tiene tamaños, obtener el seleccionado
+        if (product.sizes) {
+            let sizeIndex = 1; // Por defecto el tamaño medio
+            
+            if (fromDetail) {
+                const activeSize = detailSizes.querySelector('.detail-size-option.active');
+                sizeIndex = parseInt(activeSize.dataset.index);
             } else {
-                cart.forEach((item, index) => {
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    count += item.quantity;
-                    
-                    const cartItem = document.createElement('div');
-                    cartItem.className = 'cart-item';
-                    cartItem.innerHTML = `
-                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                        <div class="cart-item-info">
-                            <h3 class="cart-item-title">${item.name}</h3>
-                            <div class="cart-item-price">$${item.price} ${item.size ? `(${item.size})` : ''}</div>
-                            <div class="cart-item-size">${item.calories} cal</div>
-                            <div class="cart-item-quantity">
-                                <button class="quantity-btn minus" data-index="${index}">-</button>
-                                <span class="quantity-value">${item.quantity}</span>
-                                <button class="quantity-btn plus" data-index="${index}">+</button>
-                            </div>
-                        </div>
-                    `;
-                    
-                    cartItems.appendChild(cartItem);
-                });
-                
-                // Event listeners para los botones de cantidad
-                document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const index = parseInt(btn.dataset.index);
-                        cart[index].quantity++;
-                        updateCart();
-                        saveUserData();
-                    });
-                });
-                
-                document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const index = parseInt(btn.dataset.index);
-                        if (cart[index].quantity > 1) {
-                            cart[index].quantity--;
-                        } else {
-                            cart.splice(index, 1);
-                        }
-                        updateCart();
-                        saveUserData();
-                    });
-                });
+                const productCard = document.querySelector(`.product-card[data-id="${product.id}"]`);
+                if (productCard) {
+                    const activeSize = productCard.querySelector('.size-option.active');
+                    if (activeSize) {
+                        const sizes = productCard.querySelectorAll('.size-option');
+                        sizeIndex = Array.from(sizes).indexOf(activeSize);
+                    }
+                }
             }
             
-            cartTotal.textContent = `$${total}`;
-            cartCount.textContent = count;
+            selectedSize = product.sizes[sizeIndex].name;
+            finalPrice = product.sizes[sizeIndex].price;
+            calories = product.sizes[sizeIndex].calories;
         }
+        
+        // Buscar si el producto ya está en el carrito
+        const existingItemIndex = cart.findIndex(item => 
+            item.id === product.id && item.size === selectedSize
+        );
+        
+        if (existingItemIndex >= 0) {
+            // Incrementar cantidad si ya existe
+            cart[existingItemIndex].quantity++;
+        } else {
+            // Agregar nuevo item al carrito
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: finalPrice,
+                image: product.images[0],
+                size: selectedSize,
+                calories: calories,
+                quantity: 1
+            });
+        }
+        
+        updateCart();
+        showNotification();
+        saveUserData();
+        
+        // Si se agregó desde el detalle, cerrar el modal
+        if (fromDetail) {
+            productDetailModal.classList.remove('open');
+        }
+    }
 
-        // Abrir checkout
-        function openCheckout() {
-            if (cart.length === 0) {
-                alert('Tu carrito está vacío');
+    // Event listener para agregar desde el detalle
+    addToCartDetail.addEventListener('click', () => {
+        if (currentProduct) {
+            addToCart(currentProduct, true);
+        }
+    });
+
+    // Mostrar notificación de producto agregado
+    function showNotification() {
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+
+    // Actualizar carrito
+    function updateCart() {
+        cartItems.innerHTML = '';
+        let total = 0;
+        let count = 0;
+        
+        if (cart.length === 0) {
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Tu carrito está vacío</p>
+                </div>
+            `;
+        } else {
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                count += item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-info">
+                        <h3 class="cart-item-title">${item.name}</h3>
+                        <div class="cart-item-price">$${formatPrice(item.price)} ${item.size ? `(${item.size})` : ''}</div>
+                        <div class="cart-item-size">${item.calories} cal</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn minus" data-index="${index}">-</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn plus" data-index="${index}">+</button>
+                        </div>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            // Event listeners para los botones de cantidad
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const index = parseInt(btn.dataset.index);
+                    cart[index].quantity++;
+                    updateCart();
+                    saveUserData();
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const index = parseInt(btn.dataset.index);
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity--;
+                    } else {
+                        cart.splice(index, 1);
+                    }
+                    updateCart();
+                    saveUserData();
+                });
+            });
+        }
+        
+        cartTotal.textContent = `$${formatPrice(total)}`;
+        cartCount.textContent = count;
+    }
+
+    // Abrir checkout
+    function openCheckout() {
+        if (cart.length === 0) {
+            alert('Tu carrito está vacío');
+            return;
+        }
+        
+        // Resetear steps del checkout
+        document.getElementById('step1').classList.add('active');
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.remove('active');
+        
+        document.getElementById('checkoutStep1').style.display = 'block';
+        document.getElementById('checkoutStep2').style.display = 'none';
+        document.getElementById('checkoutStep3').style.display = 'none';
+        
+        // Ocultar campo de dirección inicialmente
+        addressField.classList.remove('visible');
+        
+        // Actualizar resumen
+        updateCheckoutSummary();
+        
+        // Mostrar modal
+        checkoutModal.classList.add('open');
+        cartModal.classList.remove('open');
+    }
+
+    // Cambiar paso en el checkout
+    function changeCheckoutStep(step) {
+        if (step === 2) {
+            // Validar paso 1
+            if (deliveryOption === 'delivery' || deliveryOption === 'robot') {
+                const address = document.getElementById('deliveryAddress').value;
+                if (!address) {
+                    alert('Por favor ingresa una dirección de envío');
+                    return;
+                }
+            }
+            
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            
+            document.getElementById('checkoutStep1').style.display = 'none';
+            document.getElementById('checkoutStep2').style.display = 'block';
+        } else if (step === 3) {
+            // Validar paso 2
+            if (!document.getElementById('cardNumber').value || 
+                !document.getElementById('cardExpiry').value || 
+                !document.getElementById('cardCVC').value) {
+                alert('Por favor completa todos los campos de pago');
                 return;
             }
             
-            // Resetear steps del checkout
-            document.getElementById('step1').classList.add('active');
             document.getElementById('step2').classList.remove('active');
-            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
             
-            document.getElementById('checkoutStep1').style.display = 'block';
             document.getElementById('checkoutStep2').style.display = 'none';
-            document.getElementById('checkoutStep3').style.display = 'none';
-            
-            // Ocultar campo de dirección inicialmente
-            addressField.classList.remove('visible');
-            
-            // Actualizar resumen
-            updateCheckoutSummary();
-            
-            // Mostrar modal
-            checkoutModal.classList.add('open');
-            cartModal.classList.remove('open');
+            document.getElementById('checkoutStep3').style.display = 'block';
         }
+    }
 
-        // Cambiar paso en el checkout
-        function changeCheckoutStep(step) {
-            if (step === 2) {
-                // Validar paso 1
-                if (deliveryOption === 'delivery' || deliveryOption === 'robot') {
-                    const address = document.getElementById('deliveryAddress').value;
-                    if (!address) {
-                        alert('Por favor ingresa una dirección de envío');
-                        return;
-                    }
-                }
-                
-                document.getElementById('step1').classList.remove('active');
-                document.getElementById('step2').classList.add('active');
-                
-                document.getElementById('checkoutStep1').style.display = 'none';
-                document.getElementById('checkoutStep2').style.display = 'block';
-            } else if (step === 3) {
-                // Validar paso 2
-                if (!document.getElementById('cardNumber').value || 
-                    !document.getElementById('cardExpiry').value || 
-                    !document.getElementById('cardCVC').value) {
-                    alert('Por favor completa todos los campos de pago');
-                    return;
-                }
-                
-                document.getElementById('step2').classList.remove('active');
-                document.getElementById('step3').classList.add('active');
-                
-                document.getElementById('checkoutStep2').style.display = 'none';
-                document.getElementById('checkoutStep3').style.display = 'block';
-            }
-        }
+    // Actualizar resumen del checkout
+    function updateCheckoutSummary() {
+        const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        
+        summarySubtotal.textContent = `$${formatPrice(subtotal)}`;
+        summaryShipping.textContent = `$${formatPrice(deliveryPrice)}`;
+        summaryDiscount.textContent = `-$${formatPrice(discount)}`;
+        
+        const total = subtotal + deliveryPrice - discount;
+        summaryTotal.textContent = `$${formatPrice(total)}`;
+    }
 
-        // Actualizar resumen del checkout
-        function updateCheckoutSummary() {
-            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-            
-            summarySubtotal.textContent = `$${subtotal}`;
-            summaryShipping.textContent = `$${deliveryPrice}`;
-            summaryDiscount.textContent = `-$${discount}`;
-            
-            const total = subtotal + deliveryPrice - discount;
-            summaryTotal.textContent = `$${total}`;
-        }
+    // Procesar pago
+    function processPayment() {
+        // Simular procesamiento de pago
+        setTimeout(() => {
+            changeCheckoutStep(3);
+        }, 1500);
+    }
 
-        // Procesar pago
-        function processPayment() {
-            // Simular procesamiento de pago
-            setTimeout(() => {
-                changeCheckoutStep(3);
-            }, 1500);
-        }
-
-        // Inicializar la tienda cuando se carga la página
-        document.addEventListener('DOMContentLoaded', initStore);
-    </script>
+    // Inicializar la tienda cuando se carga la página
+    document.addEventListener('DOMContentLoaded', initStore);
+</script>
 </body>
 </html>
