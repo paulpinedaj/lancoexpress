@@ -2171,7 +2171,7 @@
                 </div>
             </div>
 
-            <button class="apply-filters-btn" id="applyFilters">Aplicar Filtros</button>
+            <button style="display: none;" class="apply-filters-btn" id="applyFilters">Aplicar Filtros</button>
         </aside>
 
         <!-- Sección de promociones (oculta inicialmente) -->
@@ -2448,7 +2448,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2026 LancoExpress - Dev x Skeleton.cl</p>
+            <p>Skeleton.cl - &copy; LancoExpress 2025</p>
         </div>
     </footer>
 
@@ -2896,10 +2896,8 @@
         const minutesElement = document.getElementById('minutes');
         const secondsElement = document.getElementById('seconds');
         const body = document.body;
-
         // Inicializar la tienda
         function initStore() {
-            displayProducts(products);
             setupEventListeners();
             loadUserData();
             updateStoreStatus();
@@ -2907,10 +2905,12 @@
             displaySeptemberPromotions();
             startPromoCounter();
             
+            // Filtrar productos al iniciar (en lugar de mostrar todos)
+                updateCategoryFilters();
+
             // Iniciar el intervalo para actualizar el estado de la tienda
             storeStatusInterval = setInterval(updateStoreStatus, 60000); // Actualizar cada minuto
         }
-
         // Configurar event listeners
         function setupEventListeners() {
             cartIcon.addEventListener('click', () => cartModal.classList.add('open'));
@@ -2924,9 +2924,9 @@
                 filterProducts();
             });
             
-            document.querySelectorAll('input[name="category"]').forEach(checkbox => {
+            /**document.querySelectorAll('input[name="category"]').forEach(checkbox => {
                 checkbox.addEventListener('change', filterProducts);
-            });
+            });**/
             
             document.querySelectorAll('input[name="sort"]').forEach(radio => {
                 radio.addEventListener('change', filterProducts);
@@ -3080,28 +3080,41 @@
             let categories = [];
             
             if (currentTab === 'products') {
-                categories = ['pizza', 'sandwich', 'completo', 'tabla', 'bebida', 'tacos', 'hamburguesa', 'papas'];
+                categories = ['pizza', 'sandwich', 'completo', 'tabla', 'tacos', 'hamburguesa', 'papas'];
             } else if (currentTab === 'bar') {
-                categories = ['cerveza', 'vino', 'tequila', 'ron', 'vodka', 'energetica'];
+                categories = ['cerveza', 'vino', 'tequila', 'ron', 'vodka', 'energetica', 'bebida'];
             }
             
             categoryFilters.innerHTML = '';
             
+            // Agregar opción "Todas las categorías"
+            categoryFilters.innerHTML += `
+                <label class="custom-radio">
+                    <input type="radio" name="categoryFilter" value="all" checked>
+                    <span class="radiomark"></span>
+                    Todas las categorías
+                </label>
+            `;
+            
+            // Agregar categorías individuales
             categories.forEach(category => {
                 const categoryName = getCategoryName(category);
                 categoryFilters.innerHTML += `
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="category" value="${category}" checked>
-                        <span class="checkmark"></span>
+                    <label class="custom-radio">
+                        <input type="radio" name="categoryFilter" value="${category}">
+                        <span class="radiomark"></span>
                         ${categoryName}
                     </label>
                 `;
             });
             
-            // Agregar event listeners a los nuevos checkboxes
-            document.querySelectorAll('input[name="category"]').forEach(checkbox => {
-                checkbox.addEventListener('change', filterProducts);
+            // Agregar event listeners a los nuevos radio buttons
+            document.querySelectorAll('input[name="categoryFilter"]').forEach(radio => {
+                radio.addEventListener('change', filterProducts);
             });
+            
+            // Filtrar productos inmediatamente después de crear los radio buttons
+            filterProducts();
         }
 
         // Obtener nombre legible de categoría
@@ -3111,7 +3124,6 @@
                 'sandwich': 'Sándwiches',
                 'completo': 'Completos',
                 'tabla': 'Tablas',
-                'bebida': 'Bebidas',
                 'tacos': 'Tacos',
                 'hamburguesa': 'Hamburguesas',
                 'papas': 'Papas Fritas',
@@ -3120,7 +3132,8 @@
                 'tequila': 'Tequila',
                 'ron': 'Ron',
                 'vodka': 'Vodka',
-                'energetica': 'Energéticas'
+                'energetica': 'Energéticas',
+                'bebida': 'Bebidas'
             };
             
             return categoryNames[category] || category;
@@ -3405,13 +3418,26 @@
         function filterProducts() {
             const searchTerm = searchInput.value.toLowerCase();
             const maxPrice = parseInt(priceRange.value);
-            const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
+            const selectedCategory = document.querySelector('input[name="categoryFilter"]:checked').value;
             const sortOption = document.querySelector('input[name="sort"]:checked').value;
             
-            filteredProducts = products.filter(product => {
+            // Primero filtrar por la pestaña activa
+            let productsToFilter = [...products];
+            if (currentTab === 'products') {
+                productsToFilter = products.filter(product => 
+                    ['pizza', 'sandwich', 'completo', 'tabla', 'tacos', 'hamburguesa', 'papas'].includes(product.category)
+                );
+            } else if (currentTab === 'bar') {
+                productsToFilter = products.filter(product => 
+                    ['cerveza', 'vino', 'tequila', 'ron', 'vodka', 'energetica', 'bebida'].includes(product.category)
+                );
+            }
+            
+            // Luego aplicar los demás filtros
+            filteredProducts = productsToFilter.filter(product => {
                 const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
                                      product.description.toLowerCase().includes(searchTerm);
-                const matchesCategory = selectedCategories.includes(product.category);
+                const matchesCategory = selectedCategory === 'all' || selectedCategory === product.category;
                 const matchesPrice = product.price <= maxPrice;
                 
                 return matchesSearch && matchesCategory && matchesPrice;
@@ -3432,7 +3458,6 @@
             
             displayProducts(filteredProducts);
         }
-
         // Abrir detalle del producto
         function openProductDetail(product) {
             currentProduct = product;
