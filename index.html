@@ -200,6 +200,128 @@
             background-color: var(--bar-primary);
         }
 
+        /* Theme toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            background: #f0f0f0;
+            border-radius: 30px;
+            padding: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        body.bar-mode .theme-toggle {
+            background: #333;
+        }
+
+        .theme-toggle-handle {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle.dark .theme-toggle-handle {
+            left: 33px;
+        }
+
+        .theme-toggle i {
+            font-size: 14px;
+            position: absolute;
+        }
+
+        .theme-toggle .fa-sun {
+            color: #FFD166;
+            left: 8px;
+        }
+
+        .theme-toggle .fa-moon {
+            color: #2B2D42;
+            right: 8px;
+        }
+
+        /* Language selector */
+        .language-selector {
+            position: relative;
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: var(--transition);
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        body.bar-mode .language-btn {
+            color: var(--bar-text);
+        }
+
+        .language-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.bar-mode .language-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 10px 0;
+            min-width: 120px;
+            z-index: 1000;
+            display: none;
+        }
+
+        body.bar-mode .language-dropdown {
+            background: var(--bar-card);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .language-dropdown.open {
+            display: block;
+        }
+
+        .language-option {
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-option:hover {
+            background: #f0f0f0;
+        }
+
+        body.bar-mode .language-option:hover {
+            background: #2a2a2a;
+        }
+
         /* Main Content */
         .container {
             max-width: 1200px;
@@ -1958,9 +2080,34 @@
                 max-width: 100%;
             }
 
+            /* Mostrar 2 productos por fila en móviles */
             .products {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
+            }
+
+            .product-card {
+                max-width: 100%;
+            }
+
+            .product-image-container {
+                height: 150px;
+            }
+
+            .product-info {
+                padding: 15px;
+            }
+
+            .product-title {
+                font-size: 1rem;
+            }
+
+            .product-description {
+                font-size: 0.8rem;
+            }
+
+            .product-price {
+                font-size: 1.1rem;
             }
 
             .product-meta {
@@ -1985,6 +2132,19 @@
             .promo-counter-content {
                 flex-direction: column;
                 gap: 5px;
+            }
+
+            /* Ajustes para el selector de idioma en móviles */
+            .language-btn span {
+                display: none;
+            }
+
+            .theme-toggle {
+                width: 50px;
+            }
+
+            .theme-toggle.dark .theme-toggle-handle {
+                left: 23px;
             }
         }
 
@@ -2091,6 +2251,34 @@
                 </div>
 
                 <div class="nav-icons">
+                    <!-- Selector de idioma -->
+                    <div class="language-selector">
+                        <button class="language-btn" id="languageBtn">
+                            <i class="fas fa-globe"></i>
+                            <span id="currentLanguage">ES</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="language-dropdown" id="languageDropdown">
+                            <div class="language-option" data-lang="es">
+                                <i class="fas fa-check" style="display: none;"></i>
+                                <span>Español</span>
+                            </div>
+                            <div class="language-option" data-lang="en">
+                                <i class="fas fa-check" style="display: none;"></i>
+                                <span>English</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selector de tema -->
+                    <div class="theme-toggle" id="themeToggle">
+                        <div class="theme-toggle-handle">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+
                     <button class="icon-btn" id="userBtn">
                         <i class="fas fa-user"></i>
                     </button>
@@ -2111,12 +2299,12 @@
     <!-- Tabs de navegación -->
     <div class="tabs-container">
         <div class="tabs">
-            <div class="tab active" data-tab="products">Comida</div>
-            <div class="tab" data-tab="bar">Bar & Tragos</div>
-            <div class="tab" data-tab="promotions">Promociones</div>
-            <div class="tab" data-tab="september">18 Septiembre</div>
-            <div class="tab" data-tab="orders">Mis Pedidos</div>
-            <div class="tab" data-tab="profile">Mi Cuenta</div>
+            <div class="tab active" data-tab="products" data-i18n="food">Comida</div>
+            <div class="tab" data-tab="bar" data-i18n="bar">Bar & Tragos</div>
+            <div class="tab" data-tab="promotions" data-i18n="promotions">Promociones</div>
+            <div class="tab" data-tab="september" data-i18n="september">18 Septiembre</div>
+            <div class="tab" data-tab="orders" data-i18n="orders">Mis Pedidos</div>
+            <div class="tab" data-tab="profile" data-i18n="profile">Mi Cuenta</div>
         </div>
     </div>
 
@@ -2124,7 +2312,7 @@
     <div class="container">
         <!-- Botón para mostrar filtros en móvil -->
         <button class="mobile-filters-toggle" id="mobileFiltersToggle">
-            <i class="fas fa-filter"></i> Filtros
+            <i class="fas fa-filter"></i> <span data-i18n="filters">Filtros</span>
         </button>
 
         <!-- Overlay para filtros móviles -->
@@ -2133,50 +2321,50 @@
         <!-- Filtros -->
         <aside class="filters" id="filtersSidebar">
             <button class="close-filters" id="closeFilters">&times;</button>
-            <h3><i class="fas fa-filter"></i> Filtros</h3>
+            <h3><i class="fas fa-filter"></i> <span data-i18n="filters">Filtros</span></h3>
             
             <div class="filter-group">
-                <h4><i class="fas fa-tag"></i> Categorías</h4>
+                <h4><i class="fas fa-tag"></i> <span data-i18n="categories">Categorías</span></h4>
                 <div class="filter-options" id="categoryFilters">
                     <!-- Las categorías se cargarán dinámicamente según la sección -->
                 </div>
             </div>
             
             <div class="filter-group">
-                <h4><i class="fas fa-dollar-sign"></i> Precio</h4>
+                <h4><i class="fas fa-dollar-sign"></i> <span data-i18n="price">Precio</span></h4>
                 <div class="price-range-container">
                     <input type="range" min="0" max="15000" value="15000" class="price-range" id="priceRange">
-                    <div class="price-value">Hasta $<span id="priceValue">15000</span></div>
+                    <div class="price-value"><span data-i18n="upTo">Hasta</span> $<span id="priceValue">15000</span></div>
                 </div>
             </div>
             
             <div class="filter-group">
-                <h4><i class="fas fa-sort"></i> Ordenar por</h4>
+                <h4><i class="fas fa-sort"></i> <span data-i18n="sortBy">Ordenar por</span></h4>
                 <div class="filter-options">
                     <label class="custom-radio">
                         <input type="radio" name="sort" value="name" checked>
                         <span class="radiomark"></span>
-                        Nombre
+                        <span data-i18n="name">Nombre</span>
                     </label>
                     <label class="custom-radio">
                         <input type="radio" name="sort" value="price-asc">
                         <span class="radiomark"></span>
-                        Precio: menor a mayor
+                        <span data-i18n="priceLowToHigh">Precio: menor a mayor</span>
                     </label>
                     <label class="custom-radio">
                         <input type="radio" name="sort" value="price-desc">
                         <span class="radiomark"></span>
-                        Precio: mayor a menor
+                        <span data-i18n="priceHighToLow">Precio: mayor a menor</span>
                     </label>
                 </div>
             </div>
 
-            <button style="display: none;" class="apply-filters-btn" id="applyFilters">Aplicar Filtros</button>
+            <button style="display: none;" class="apply-filters-btn" id="applyFilters" data-i18n="applyFilters">Aplicar Filtros</button>
         </aside>
 
         <!-- Sección de promociones (oculta inicialmente) -->
         <main class="promotions-section" id="promotionsSection" style="display: none;">
-            <h2 class="section-title"><i class="fas fa-percentage"></i> Promociones de la Semana</h2>
+            <h2 class="section-title"><i class="fas fa-percentage"></i> <span data-i18n="weeklyPromotions">Promociones de la Semana</span></h2>
             <div class="promo-cards" id="promoCards">
                 <!-- Las promociones se cargarán dinámicamente -->
             </div>
@@ -2184,7 +2372,7 @@
 
         <!-- Sección 18 de septiembre (oculta inicialmente) -->
         <main class="promotions-section" id="septemberSection" style="display: none;">
-            <h2 class="section-title"><i class="fas fa-flag"></i> Especial Fiestas Patrias</h2>
+            <h2 class="section-title"><i class="fas fa-flag"></i> <span data-i18n="septemberSpecial">Especial Fiestas Patrias</span></h2>
             <div class="promo-cards" id="septemberPromos">
                 <!-- Las promociones de septiembre se cargarán dinámicamente -->
             </div>
@@ -2217,27 +2405,27 @@
                     <div class="product-meta">
                         <div class="meta-item">
                             <i class="fas fa-fire"></i>
-                            <span>Calorías</span>
+                            <span data-i18n="calories">Calorías</span>
                             <strong id="detailCalories"></strong>
                         </div>
                         <div class="meta-item">
                             <i class="fas fa-clock"></i>
-                            <span>Tiempo preparación</span>
+                            <span data-i18n="prepTime">Tiempo preparación</span>
                             <strong id="detailTime"></strong>
                         </div>
                         <div class="meta-item">
                             <i class="fas fa-star"></i>
-                            <span>Valoración</span>
+                            <span data-i18n="rating">Valoración</span>
                             <strong id="detailRating"></strong>
                         </div>
                         <div class="meta-item">
                             <i class="fas fa-weight"></i>
-                            <span>Peso</span>
+                            <span data-i18n="weight">Peso</span>
                             <strong id="detailWeight"></strong>
                         </div>
                     </div>
                     
-                    <h4>Selecciona un tamaño:</h4>
+                    <h4 data-i18n="selectSize">Selecciona un tamaño:</h4>
                     <div class="detail-size-options" id="detailSizes">
                         <!-- Las opciones de tamaño se cargarán dinámicamente -->
                     </div>
@@ -2255,7 +2443,7 @@
                     </div>
                     
                     <button class="add-to-cart-detail" id="addToCartDetail">
-                        <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        <i class="fas fa-shopping-cart"></i> <span data-i18n="addToCart">Agregar al Carrito</span>
                     </button>
                 </div>
             </div>
@@ -2265,17 +2453,17 @@
     <!-- Carrito de compras -->
     <div class="cart-modal" id="cartModal">
         <div class="cart-header">
-            <h2>Tu Carrito</h2>
+            <h2 data-i18n="yourCart">Tu Carrito</h2>
             <button class="close-cart" id="closeCart">&times;</button>
         </div>
         <div class="cart-items" id="cartItems">
             <!-- Los items del carrito se cargarán dinámicamente -->
         </div>
         <div class="cart-total">
-            <span>Total:</span>
+            <span data-i18n="total">Total:</span>
             <span id="cartTotal">$0</span>
         </div>
-        <button class="checkout-btn" id="checkoutBtn">Finalizar Compra</button>
+        <button class="checkout-btn" id="checkoutBtn" data-i18n="checkout">Finalizar Compra</button>
     </div>
 
     <!-- Checkout Modal -->
@@ -2289,88 +2477,88 @@
             </div>
             
             <div class="checkout-form" id="checkoutStep1">
-                <h3>Método de entrega</h3>
+                <h3 data-i18n="deliveryMethod">Método de entrega</h3>
                 <div class="delivery-options">
                     <div class="delivery-option selected" data-type="pickup" data-price="0">
                         <i class="fas fa-store"></i>
-                        <div>Retiro en local</div>
-                        <div class="price">Gratis</div>
+                        <div data-i18n="pickup">Retiro en local</div>
+                        <div class="price" data-i18n="free">Gratis</div>
                     </div>
                     <div class="delivery-option" data-type="delivery" data-price="1500">
                         <i class="fas fa-truck"></i>
-                        <div>Envío a domicilio</div>
+                        <div data-i18n="homeDelivery">Envío a domicilio</div>
                         <div class="price">$1.500</div>
                     </div>
                     <div class="delivery-option" data-type="robot" data-price="2000">
                         <i class="fas fa-robot"></i>
-                        <div>Envío con Robot</div>
+                        <div data-i18n="robotDelivery">Envío con Robot</div>
                         <div class="price">$2.000</div>
                     </div>
                 </div>
                 
                 <div class="form-group address-field" id="addressField">
-                    <label for="deliveryAddress">Dirección de envío</label>
-                    <input type="text" id="deliveryAddress" class="form-control" placeholder="Ingresa tu dirección">
+                    <label for="deliveryAddress" data-i18n="deliveryAddress">Dirección de envío</label>
+                    <input type="text" id="deliveryAddress" class="form-control" data-i18n-placeholder="enterAddress" placeholder="Ingresa tu dirección">
                 </div>
                 
-                <button class="checkout-btn" id="toStep2">Continuar</button>
+                <button class="checkout-btn" id="toStep2" data-i18n="continue">Continuar</button>
             </div>
             
             <div class="checkout-form" id="checkoutStep2" style="display: none;">
-                <h3>Método de pago</h3>
+                <h3 data-i18n="paymentMethod">Método de pago</h3>
                 
                 <div class="form-group">
-                    <label for="cardNumber">Número de tarjeta</label>
+                    <label for="cardNumber" data-i18n="cardNumber">Número de tarjeta</label>
                     <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456">
                 </div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     <div class="form-group">
-                        <label for="cardExpiry">Fecha de expiración</label>
+                        <label for="cardExpiry" data-i18n="expiryDate">Fecha de expiración</label>
                         <input type="text" id="cardExpiry" class="form-control" placeholder="MM/AA">
                     </div>
                     <div class="form-group">
-                        <label for="cardCVC">CVC</label>
+                        <label for="cardCVC" data-i18n="cvc">CVC</label>
                         <input type="text" id="cardCVC" class="form-control" placeholder="123">
                     </div>
                 </div>
                 
                 <div class="coupon-form">
-                    <input type="text" class="coupon-input" placeholder="Código de descuento">
-                    <button class="apply-coupon">Aplicar</button>
+                    <input type="text" class="coupon-input" data-i18n-placeholder="discountCode" placeholder="Código de descuento">
+                    <button class="apply-coupon" data-i18n="apply">Aplicar</button>
                 </div>
                 
                 <div class="checkout-summary">
                     <div class="summary-item">
-                        <span>Subtotal</span>
+                        <span data-i18n="subtotal">Subtotal</span>
                         <span id="summarySubtotal">$0</span>
                     </div>
                     <div class="summary-item">
-                        <span>Envío</span>
+                        <span data-i18n="shipping">Envío</span>
                         <span id="summaryShipping">$0</span>
                     </div>
                     <div class="summary-item">
-                        <span>Descuento</span>
+                        <span data-i18n="discount">Descuento</span>
                         <span id="summaryDiscount">-$0</span>
                     </div>
                     <div class="summary-total">
-                        <span>Total</span>
+                        <span data-i18n="total">Total</span>
                         <span id="summaryTotal">$0</span>
                     </div>
                 </div>
                 
-                <button class="checkout-btn" id="toStep3">Pagar ahora</button>
+                <button class="checkout-btn" id="toStep3" data-i18n="payNow">Pagar ahora</button>
             </div>
             
             <div class="checkout-form" id="checkoutStep3" style="display: none;">
                 <div class="payment-success">
                     <i class="fas fa-check-circle"></i>
-                    <h2>¡Pedido Recibido!</h2>
-                    <p>Tu pedido ha sido procesado correctamente.</p>
-                    <p>Número de orden: <strong>#ORD-2023-78945</strong></p>
-                    <p>Te llegará un correo con los detalles de tu compra.</p>
-                    <p class="thanks-message">¡Gracias por tu compra!</p>
-                    <button class="continue-shopping" id="continueShopping">Continuar comprando</button>
+                    <h2 data-i18n="orderReceived">¡Pedido Recibido!</h2>
+                    <p data-i18n="orderProcessed">Tu pedido ha sido procesado correctamente.</p>
+                    <p data-i18n="orderNumber">Número de orden: <strong>#ORD-2023-78945</strong></p>
+                    <p data-i18n="orderEmail">Te llegará un correo con los detalles de tu compra.</p>
+                    <p class="thanks-message" data-i18n="thanks">¡Gracias por tu compra!</p>
+                    <button class="continue-shopping" id="continueShopping" data-i18n="continueShopping">Continuar comprando</button>
                 </div>
             </div>
         </div>
@@ -2379,13 +2567,13 @@
     <!-- Notificación -->
     <div class="notification" id="notification">
         <i class="fas fa-check-circle"></i>
-        <span>Producto agregado al carrito!</span>
+        <span data-i18n="productAdded">Producto agregado al carrito!</span>
     </div>
 
     <!-- Indicador de horario -->
     <div class="store-status">
         <div class="status-indicator" id="statusIndicator"></div>
-        <div class="status-text" id="statusText">Abierto</div>
+        <div class="status-text" id="statusText" data-i18n="open">Abierto</div>
         <div class="countdown" id="countdown"></div>
     </div>
 
@@ -2393,15 +2581,15 @@
     <div class="robot-delivery">
         <i class="fas fa-robot"></i>
         <div class="robot-tooltip">
-            <strong>¡Delivery con Robot!</strong>
-            <p>Tu pedido será entregado por nuestro robot autónomo. Ecológico y futurista.</p>
+            <strong data-i18n="robotDeliveryTitle">¡Delivery con Robot!</strong>
+            <p data-i18n="robotDeliveryDesc">Tu pedido será entregado por nuestro robot autónomo. Ecológico y futurista.</p>
         </div>
     </div>
 
     <!-- Contador promocional -->
     <div class="promo-counter">
         <div class="promo-counter-content">
-            <span class="promo-counter-text" id="promoCounterText">¡Oferta del día! Termina en:</span>
+            <span class="promo-counter-text" id="promoCounterText" data-i18n="dailyOffer">¡Oferta del día! Termina en:</span>
             <div class="counter-timer">
                 <span class="counter-unit" id="hours">00</span>:
                 <span class="counter-unit" id="minutes">00</span>:
@@ -2415,7 +2603,7 @@
         <div class="footer-container">
             <div class="footer-section">
                 <h3><i class="fas fa-utensils"></i> LancoExpress</h3>
-                <p>La mejor comida rápida directamente a tu puerta. Calidad y sabor en cada bocado.</p>
+                <p data-i18n="footerDescription">La mejor comida rápida directamente a tu puerta. Calidad y sabor en cada bocado.</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -2425,23 +2613,23 @@
             </div>
             
             <div class="footer-section">
-                <h3><i class="fas fa-link"></i> Enlaces Rápidos</h3>
-                <p>Menú</p>
-                <p>Promociones</p>
-                <p>Sobre Nosotros</p>
-                <p>Contacto</p>
+                <h3><i class="fas fa-link"></i> <span data-i18n="quickLinks">Enlaces Rápidos</span></h3>
+                <p data-i18n="menu">Menú</p>
+                <p data-i18n="promotions">Promociones</p>
+                <p data-i18n="aboutUs">Sobre Nosotros</p>
+                <p data-i18n="contact">Contacto</p>
             </div>
             
             <div class="footer-section">
-                <h3><i class="fas fa-clock"></i> Horario de Atención</h3>
-                <p>Lunes a Viernes: 10:00 - 22:00</p>
-                <p>Sábados y Domingos: 11:00 - 23:00</p>
-                <p>Feriados: 12:00 - 20:00</p>
+                <h3><i class="fas fa-clock"></i> <span data-i18n="openingHours">Horario de Atención</span></h3>
+                <p data-i18n="weekdays">Lunes a Viernes: 10:00 - 22:00</p>
+                <p data-i18n="weekends">Sábados y Domingos: 11:00 - 23:00</p>
+                <p data-i18n="holidays">Feriados: 12:00 - 20:00</p>
             </div>
             
             <div class="footer-section">
-                <h3><i class="fas fa-map-marker-alt"></i> Contacto</h3>
-                <p>Av. Principal 1234, Lanco</p>
+                <h3><i class="fas fa-map-marker-alt"></i> <span data-i18n="contact">Contacto</span></h3>
+                <p data-i18n="address">Av. Principal 1234, Lanco</p>
                 <p><i class="fas fa-phone"></i> +56 9 1234 5678</p>
                 <p><i class="fas fa-envelope"></i> info@lancoexpress.cl</p>
             </div>
@@ -2459,7 +2647,9 @@
         {
             id: 1,
             name: "Pizza Margarita",
+            name_en: "Margherita Pizza",
             description: "Salsa de tomate, mozzarella y albahaca fresca. Un clásico italiano con ingredientes de la más alta calidad.",
+            description_en: "Tomato sauce, mozzarella and fresh basil. An Italian classic with the highest quality ingredients.",
             price: 6990,
             category: "pizza",
             images: [
@@ -2477,7 +2667,9 @@
         {
             id: 2,
             name: "Pizza Pepperoni",
+            name_en: "Pepperoni Pizza",
             description: "Salsa de tomate, mozzarella y pepperoni. El favorito de todos con un toque picante perfecto.",
+            description_en: "Tomato sauce, mozzarella and pepperoni. Everyone's favorite with the perfect spicy touch.",
             price: 7990,
             category: "pizza",
             images: [
@@ -2495,7 +2687,9 @@
         {
             id: 3,
             name: "Sandwich Club",
+            name_en: "Club Sandwich",
             description: "Pollo, tocino, lechuga, tomate y mayonesa. Un sandwich clásico lleno de sabor y texturas.",
+            description_en: "Chicken, bacon, lettuce, tomato and mayonnaise. A classic sandwich full of flavor and textures.",
             price: 4990,
             category: "sandwich",
             images: [
@@ -2509,7 +2703,9 @@
         {
             id: 4,
             name: "Completo Italiano",
+            name_en: "Italian Hot Dog",
             description: "Salchicha, palta, tomate y mayonesa. El clásico completo chileno con un toque italiano.",
+            description_en: "Sausage, avocado, tomato and mayonnaise. The classic Chilean hot dog with an Italian touch.",
             price: 2990,
             category: "completo",
             images: [
@@ -2523,7 +2719,9 @@
         {
             id: 5,
             name: "Tabla Mixta",
+            name_en: "Mixed Platter",
             description: "Embutidos, quesos, frutos secos y pan. Perfecta para compartir en cualquier ocasión.",
+            description_en: "Cold cuts, cheeses, nuts and bread. Perfect for sharing on any occasion.",
             price: 12990,
             category: "tabla",
             images: [
@@ -2539,7 +2737,9 @@
         {
             id: 6,
             name: "Coca-Cola",
+            name_en: "Coca-Cola",
             description: "Bebida gaseosa Lata 350. Refrescante y perfecta para acompañar cualquier comida.",
+            description_en: "350ml soda can. Refreshing and perfect to accompany any meal.",
             price: 1500,
             category: "bebida",
             images: [
@@ -2553,7 +2753,9 @@
         {
             id: 7,
             name: "Pizza Hawaiana",
+            name_en: "Hawaiian Pizza",
             description: "Salsa de tomate, mozzarella, jamón y piña. La combinación perfecta de dulce y salado.",
+            description_en: "Tomato sauce, mozzarella, ham and pineapple. The perfect combination of sweet and salty.",
             price: 8490,
             category: "pizza",
             images: [
@@ -2571,7 +2773,9 @@
         {
             id: 8,
             name: "Sandwich Veggie",
+            name_en: "Veggie Sandwich",
             description: "Verduras asadas, queso y pesto. Una opción vegetariana llena de sabor y color.",
+            description_en: "Grilled vegetables, cheese and pesto. A vegetarian option full of flavor and color.",
             price: 4490,
             category: "sandwich",
             images: [
@@ -2586,7 +2790,9 @@
         {
             id: 9,
             name: "Cerveza Artesanal",
+            name_en: "Craft Beer",
             description: "Cerveza rubia artesanal con notas cítricas y amargor balanceado. Elaborada localmente.",
+            description_en: "Artisanal blonde beer with citrus notes and balanced bitterness. Locally brewed.",
             price: 3500,
             category: "cerveza",
             images: [
@@ -2604,7 +2810,9 @@
         {
             id: 10,
             name: "Vino Tinto Reserva",
+            name_en: "Reserve Red Wine",
             description: "Vino tinto reserva con cuerpo, notas de frutos rojos y taninos suaves. Perfecto para carnes.",
+            description_en: "Reserve red wine with body, red fruit notes and soft tannins. Perfect for meats.",
             price: 8990,
             category: "vino",
             images: [
@@ -2618,7 +2826,9 @@
         {
             id: 11,
             name: "Margarita Clásica",
+            name_en: "Classic Margarita",
             description: "Tequila, triple sec and jugo de limón fresco. Servida en vaso escarchado con sal y lima.",
+            description_en: "Tequila, triple sec and fresh lemon juice. Served in a salt-rimmed glass with lime.",
             price: 6500,
             category: "tequila",
             images: [
@@ -2632,7 +2842,9 @@
         {
             id: 12,
             name: "Cuba Libre",
+            name_en: "Cuba Libre",
             description: "Ron, refresco de cola y un toque de lima. Un clásico refrescante para cualquier ocasión.",
+            description_en: "Rum, cola and a touch of lime. A refreshing classic for any occasion.",
             price: 4500,
             category: "ron",
             images: [
@@ -2646,7 +2858,9 @@
         {
             id: 13,
             name: "Vodka con Energética",
+            name_en: "Vodka Energy",
             description: "Vodka premium mezclado con bebida energética. Ideal para mantener la energía toda la noche.",
+            description_en: "Premium vodka mixed with energy drink. Ideal for keeping energy up all night.",
             price: 5500,
             category: "vodka",
             images: [
@@ -2660,7 +2874,9 @@
         {
             id: 14,
             name: "Energética Monster",
+            name_en: "Monster Energy",
             description: "Bebida energética para recuperar fuerzas. Sabor original en lata.",
+            description_en: "Energy drink to regain strength. Original flavor in a can.",
             price: 2000,
             category: "energetica",
             images: [
@@ -2675,7 +2891,9 @@
         {
             id: 15,
             name: "Tacos al Pastor",
+            name_en: "Al Pastor Tacos",
             description: "Tacos de cerdo marinado con piña, cebolla y cilantro. Salsa picante al gusto.",
+            description_en: "Marinated pork tacos with pineapple, onion and cilantro. Spicy sauce to taste.",
             price: 5990,
             category: "tacos",
             images: [
@@ -2694,7 +2912,9 @@
         {
             id: 16,
             name: "Hamburguesa Clásica",
+            name_en: "Classic Burger",
             description: "Carne de res, queso cheddar, lechuga, tomate y salsa especial. Pan brioche tostado.",
+            description_en: "Beef, cheddar cheese, lettuce, tomato and special sauce. Toasted brioche bun.",
             price: 6990,
             category: "hamburguesa",
             images: [
@@ -2709,7 +2929,9 @@
         {
             id: 17,
             name: "Papas Fritas ",
+            name_en: "French Fries",
             description: "Papas fritas crujientes",
+            description_en: "Crispy french fries",
             price: 3990,
             category: "papas",
             images: [
@@ -2730,57 +2952,80 @@
     const promotions = [
         {
             day: "Lunes",
+            day_en: "Monday",
             title: "2x1 en Pizzas",
+            title_en: "2x1 on Pizzas",
             description: "Todos los lunes disfruta de nuestras pizzas con la promoción 2x1. Válido hasta las 22:00 hrs.",
+            description_en: "Every Monday enjoy our pizzas with the 2x1 promotion. Valid until 10:00 PM.",
             time: "12:00 - 22:00",
             products: ["Pizza Margarita", "Pizza Pepperoni", "Pizza Hawaiana"],
             category: "pizza"
         },
         {
             day: "Martes",
+            day_en: "Tuesday",
             title: "Tacos a Mitad de Precio",
+            title_en: "Tacos at Half Price",
             description: "Los martes son de tacos. Disfruta todos nuestros tacos a mitad de precio.",
+            description_en: "Tuesdays are for tacos. Enjoy all our tacos at half price.",
             time: "Todo el día",
+            time_en: "All day",
             products: ["Tacos al Pastor", "Tacos de Carnitas", "Tacos Veganos"],
             category: "tacos"
         },
         {
             day: "Miércoles",
+            day_en: "Wednesday",
             title: "Hamburguesa + Papas",
+            title_en: "Burger + Fries",
             description: "Miércoles de combo: Hamburguesa + Papas Fritas + Bebida por solo $7.990.",
+            description_en: "Wednesday combo: Burger + Fries + Drink for only $7,990.",
             time: "14:00 - 22:00",
             products: ["Hamburguesa Clásica", "Papas Fritas Supreme", "Bebida"],
             category: "hamburguesa"
         },
         {
             day: "Jueves",
+            day_en: "Thursday",
             title: "Jueves de Cerveza",
+            title_en: "Beer Thursday",
             description: "Todas las cervezas artesanales a $2.500. Válido hasta las 00:00 hrs.",
+            description_en: "All craft beers at $2,500. Valid until 12:00 AM.",
             time: "18:00 - 00:00",
             products: ["Cerveza Artesanal Rubia", "Cerveza Artesanal IPA", "Cerveza Artesanal Stout"],
             category: "cerveza"
         },
         {
             day: "Viernes",
+            day_en: "Friday",
             title: "Happy Hour",
+            title_en: "Happy Hour",
             description: "2x1 en todos los tragos durante nuestro happy hour. Perfecto para empezar el fin de semana.",
+            description_en: "2x1 on all drinks during our happy hour. Perfect to start the weekend.",
             time: "17:00 - 20:00",
             products: ["Margarita Clásica", "Cuba Libre", "Vodka con Energética"],
             category: "bar"
         },
         {
             day: "Sábado",
+            day_en: "Saturday",
             title: "Combo Familiar",
+            title_en: "Family Combo",
             description: "Sábados de combo familiar: 2 pizzas grandes + 2 bebidas por $19.990.",
+            description_en: "Saturday family combo: 2 large pizzas + 2 drinks for $19,990.",
             time: "12:00 - 22:00",
             products: ["Pizza Familiar", "Bebida 1.5L"],
             category: "pizza"
         },
         {
             day: "Domingo",
+            day_en: "Sunday",
             title: "Domingo de Postres",
+            title_en: "Dessert Sunday",
             description: "Todos los domingos recibe un postre gratis con tu compra superior a $15.000.",
+            description_en: "Every Sunday receive a free dessert with your purchase over $15,000.",
             time: "Todo el día",
+            time_en: "All day",
             products: ["Brownie", "Cheesecake", "Helado"],
             category: "postres"
         }
@@ -2790,37 +3035,187 @@
     const septemberPromotions = [
         {
             title: "Empanadas de Fiestas Patrias",
+            title_en: "National Holiday Empanadas",
             description: "Empanadas tradicionales de horno con carne, cebolla, huevo y aceitunas. Sabores auténticos chilenos.",
+            description_en: "Traditional oven-baked empanadas with meat, onion, egg and olives. Authentic Chilean flavors.",
             price: 1290,
             time: "Todo septiembre",
+            time_en: "All September",
             products: ["Empanada de Pino", "Empanada de Queso", "Empanada de Mariscos"],
             image: "https://images.unsplash.com/photo-1612892483236-52d32a0e0ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
         },
         {
             title: "Terremoto Chileno",
+            title_en: "Chilean Earthquake",
             description: "El clásico trago chileno: vino pipeño con fernet y helado de piña. ¡Una explosión de sabor!",
+            description_en: "The classic Chilean drink: pipeño wine with fernet and pineapple ice cream. A flavor explosion!",
             price: 3500,
             time: "Todo septiembre",
+            time_en: "All September",
             products: ["Terremoto Tradicional", "Terremoto con Frambuesa", "Mini Terremoto"],
             image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
         },
         {
             title: "Completos Patrios",
+            title_en: "Patriotic Hot Dogs",
             description: "Completos con nuestros sabores chilenos: palta, chucrut, tomate y salsa americana.",
+            description_en: "Hot dogs with our Chilean flavors: avocado, sauerkraut, tomato and American sauce.",
             price: 1990,
             time: "Todo septiembre",
+            time_en: "All September",
             products: ["Completo Italiano", "Completo Alemán", "Completo Dinámico"],
             image: "https://media-front.elmostrador.cl/2022/05/Enex_upa-completo-700x428.png"
         },
         {
             title: "Choripán Criollo",
+            title_en: "Creole Choripán",
             description: "Choripán con pebre chileno y chancho en piedra. El sabor auténtico de nuestras fondas.",
+            description_en: "Choripán with Chilean pebre and chancho en piedra. The authentic flavor of our fondas.",
             price: 2490,
             time: "Todo septiembre",
+            time_en: "All September",
             products: ["Choripán Tradicional", "Choripán con Longaniza", "Choripán Vegano"],
             image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
         }
     ];
+
+    // Diccionario de traducciones
+    const translations = {
+        "es": {
+            "food": "Comida",
+            "bar": "Bar & Tragos",
+            "promotions": "Promociones",
+            "september": "18 Septiembre",
+            "orders": "Mis Pedidos",
+            "profile": "Mi Cuenta",
+            "filters": "Filtros",
+            "categories": "Categorías",
+            "price": "Precio",
+            "upTo": "Hasta",
+            "sortBy": "Ordenar por",
+            "name": "Nombre",
+            "priceLowToHigh": "Precio: menor a mayor",
+            "priceHighToLow": "Precio: mayor a menor",
+            "applyFilters": "Aplicar Filtros",
+            "weeklyPromotions": "Promociones de la Semana",
+            "septemberSpecial": "Especial Fiestas Patrias",
+            "calories": "Calorías",
+            "prepTime": "Tiempo preparación",
+            "rating": "Valoración",
+            "weight": "Peso",
+            "selectSize": "Selecciona un tamaño:",
+            "addToCart": "Agregar al Carrito",
+            "yourCart": "Tu Carrito",
+            "total": "Total:",
+            "checkout": "Finalizar Compra",
+            "deliveryMethod": "Método de entrega",
+            "pickup": "Retiro en local",
+            "free": "Gratis",
+            "homeDelivery": "Envío a domicilio",
+            "robotDelivery": "Envío con Robot",
+            "deliveryAddress": "Dirección de envío",
+            "enterAddress": "Ingresa tu dirección",
+            "continue": "Continuar",
+            "paymentMethod": "Método de pago",
+            "cardNumber": "Número de tarjeta",
+            "expiryDate": "Fecha de expiración",
+            "cvc": "CVC",
+            "discountCode": "Código de descuento",
+            "apply": "Aplicar",
+            "subtotal": "Subtotal",
+            "shipping": "Envío",
+            "discount": "Descuento",
+            "payNow": "Pagar ahora",
+            "orderReceived": "¡Pedido Recibido!",
+            "orderProcessed": "Tu pedido ha sido procesado correctamente.",
+            "orderNumber": "Número de orden:",
+            "orderEmail": "Te llegará un correo con los detalles de tu compra.",
+            "thanks": "¡Gracias por tu compra!",
+            "continueShopping": "Continuar comprando",
+            "productAdded": "Producto agregado al carrito!",
+            "open": "Abierto",
+            "robotDeliveryTitle": "¡Delivery con Robot!",
+            "robotDeliveryDesc": "Tu pedido será entregado por nuestro robot autónomo. Ecológico y futurista.",
+            "dailyOffer": "¡Oferta del día! Termina en:",
+            "footerDescription": "La mejor comida rápida directamente a tu puerta. Calidad y sabor en cada bocado.",
+            "quickLinks": "Enlaces Rápidos",
+            "menu": "Menú",
+            "aboutUs": "Sobre Nosotros",
+            "contact": "Contacto",
+            "openingHours": "Horario de Atención",
+            "weekdays": "Lunes a Viernes: 10:00 - 22:00",
+            "weekends": "Sábados y Domingos: 11:00 - 23:00",
+            "holidays": "Feriados: 12:00 - 20:00",
+            "address": "Av. Principal 1234, Lanco"
+        },
+        "en": {
+            "food": "Food",
+            "bar": "Bar & Drinks",
+            "promotions": "Promotions",
+            "september": "September 18th",
+            "orders": "My Orders",
+            "profile": "My Account",
+            "filters": "Filters",
+            "categories": "Categories",
+            "price": "Price",
+            "upTo": "Up to",
+            "sortBy": "Sort by",
+            "name": "Name",
+            "priceLowToHigh": "Price: low to high",
+            "priceHighToLow": "Price: high to low",
+            "applyFilters": "Apply Filters",
+            "weeklyPromotions": "Weekly Promotions",
+            "septemberSpecial": "National Holidays Special",
+            "calories": "Calories",
+            "prepTime": "Prep time",
+            "rating": "Rating",
+            "weight": "Weight",
+            "selectSize": "Select a size:",
+            "addToCart": "Add to Cart",
+            "yourCart": "Your Cart",
+            "total": "Total:",
+            "checkout": "Checkout",
+            "deliveryMethod": "Delivery method",
+            "pickup": "Store pickup",
+            "free": "Free",
+            "homeDelivery": "Home delivery",
+            "robotDelivery": "Robot delivery",
+            "deliveryAddress": "Delivery address",
+            "enterAddress": "Enter your address",
+            "continue": "Continue",
+            "paymentMethod": "Payment method",
+            "cardNumber": "Card number",
+            "expiryDate": "Expiry date",
+            "cvc": "CVC",
+            "discountCode": "Discount code",
+            "apply": "Apply",
+            "subtotal": "Subtotal",
+            "shipping": "Shipping",
+            "discount": "Discount",
+            "payNow": "Pay now",
+            "orderReceived": "Order Received!",
+            "orderProcessed": "Your order has been processed successfully.",
+            "orderNumber": "Order number:",
+            "orderEmail": "You will receive an email with your order details.",
+            "thanks": "Thank you for your purchase!",
+            "continueShopping": "Continue shopping",
+            "productAdded": "Product added to cart!",
+            "open": "Open",
+            "robotDeliveryTitle": "Robot Delivery!",
+            "robotDeliveryDesc": "Your order will be delivered by our autonomous robot. Eco-friendly and futuristic.",
+            "dailyOffer": "Daily offer! Ends in:",
+            "footerDescription": "The best fast food right to your door. Quality and flavor in every bite.",
+            "quickLinks": "Quick Links",
+            "menu": "Menu",
+            "aboutUs": "About Us",
+            "contact": "Contact",
+            "openingHours": "Opening Hours",
+            "weekdays": "Monday to Friday: 10:00 - 22:00",
+            "weekends": "Saturdays and Sundays: 11:00 - 23:00",
+            "holidays": "Holidays: 12:00 - 20:00",
+            "address": "Main Ave 1234, Lanco"
+        }
+    };
 
     // Variables globales
     let cart = [];
@@ -2834,6 +3229,8 @@
     let currentTab = "products";
     let storeStatusInterval = null;
     let promoCounterInterval = null;
+    let currentLanguage = "es";
+    let isDarkMode = false;
 
     // Elementos del DOM
     const productsContainer = document.getElementById('productsContainer');
@@ -2887,12 +3284,16 @@
     const filtersSidebar = document.getElementById('filtersSidebar');
     const filtersOverlay = document.getElementById('filtersOverlay');
     const closeFilters = document.getElementById('closeFilters');
-    const applyFilters = document.getElementById('applyFilters');
+    const applyFiltersBtn = document.getElementById('applyFilters');
     const promoCounterText = document.getElementById('promoCounterText');
     const hoursElement = document.getElementById('hours');
     const minutesElement = document.getElementById('minutes');
     const secondsElement = document.getElementById('seconds');
     const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const languageBtn = document.getElementById('languageBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const currentLanguageElement = document.getElementById('currentLanguage');
 
     // Función para formatear precios en formato chileno
     function formatPrice(price) {
@@ -2993,7 +3394,74 @@
 
         closeFilters.addEventListener('click', closeMobileFilters);
         filtersOverlay.addEventListener('click', closeMobileFilters);
-        applyFilters.addEventListener('click', closeMobileFilters);
+        applyFiltersBtn.addEventListener('click', closeMobileFilters);
+
+        // Selector de tema
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Selector de idioma
+        languageBtn.addEventListener('click', () => {
+            languageDropdown.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const lang = option.dataset.lang;
+                changeLanguage(lang);
+                languageDropdown.classList.remove('open');
+            });
+        });
+
+        // Cerrar dropdown de idioma al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!languageBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+                languageDropdown.classList.remove('open');
+            }
+        });
+    }
+
+    // Cambiar idioma
+    function changeLanguage(lang) {
+        currentLanguage = lang;
+        currentLanguageElement.textContent = lang.toUpperCase();
+        
+        // Actualizar todos los textos con data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                element.textContent = translations[lang][key];
+            }
+        });
+        
+        // Actualizar placeholders
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+            const key = element.getAttribute('data-i18n-placeholder');
+            if (translations[lang][key]) {
+                element.setAttribute('placeholder', translations[lang][key]);
+            }
+        });
+        
+        // Guardar preferencia de idioma
+        localStorage.setItem('language', lang);
+        
+        // Actualizar productos para mostrar nombres y descripciones en el idioma correcto
+        filterProducts();
+    }
+
+    // Alternar entre tema claro y oscuro
+    function toggleTheme() {
+        isDarkMode = !isDarkMode;
+        
+        if (isDarkMode) {
+            body.classList.add('bar-mode');
+            themeToggle.classList.add('dark');
+        } else {
+            body.classList.remove('bar-mode');
+            themeToggle.classList.remove('dark');
+        }
+        
+        // Guardar preferencia de tema
+        localStorage.setItem('darkMode', isDarkMode);
     }
 
     // Cerrar filtros móviles
@@ -3025,7 +3493,7 @@
             if (diff <= 0) {
                 clearInterval(promoCounterInterval);
                 // La promoción ha terminado, puedes hacer algo aquí
-                promoCounterText.textContent = "¡La oferta del día ha finalizado!";
+                promoCounterText.textContent = translations[currentLanguage]["dailyOffer"];
                 return;
             }
             
@@ -3068,8 +3536,8 @@
             productsContainer.innerHTML = `
                 <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                     <i class="fas fa-tools" style="font-size: 3rem; color: var(--gray); margin-bottom: 20px;"></i>
-                    <h3>Sección en construcción</h3>
-                    <p>Esta funcionalidad estará disponible pronto.</p>
+                    <h3>${currentLanguage === 'es' ? 'Sección en construcción' : 'Section under construction'}</h3>
+                    <p>${currentLanguage === 'es' ? 'Esta funcionalidad estará disponible pronto.' : 'This functionality will be available soon.'}</p>
                 </div>
             `;
         }
@@ -3092,7 +3560,7 @@
             <label class="custom-radio">
                 <input type="radio" name="categoryFilter" value="all" checked>
                 <span class="radiomark"></span>
-                Todas las categorías
+                ${currentLanguage === 'es' ? 'Todas las categorías' : 'All categories'}
             </label>
         `;
         
@@ -3121,19 +3589,19 @@
     function getCategoryName(category) {
         const categoryNames = {
             'pizza': 'Pizzas',
-            'sandwich': 'Sándwiches',
-            'completo': 'Completos',
-            'tabla': 'Tablas',
+            'sandwich': currentLanguage === 'es' ? 'Sándwiches' : 'Sandwiches',
+            'completo': currentLanguage === 'es' ? 'Completos' : 'Hot Dogs',
+            'tabla': currentLanguage === 'es' ? 'Tablas' : 'Platters',
             'tacos': 'Tacos',
-            'hamburguesa': 'Hamburguesas',
-            'papas': 'Papas Fritas',
-            'cerveza': 'Cervezas',
-            'vino': 'Vinos',
+            'hamburguesa': currentLanguage === 'es' ? 'Hamburguesas' : 'Burgers',
+            'papas': currentLanguage === 'es' ? 'Papas Fritas' : 'French Fries',
+            'cerveza': currentLanguage === 'es' ? 'Cervezas' : 'Beers',
+            'vino': currentLanguage === 'es' ? 'Vinos' : 'Wines',
             'tequila': 'Tequila',
-            'ron': 'Ron',
+            'ron': 'Rum',
             'vodka': 'Vodka',
-            'energetica': 'Energéticas',
-            'bebida': 'Bebidas'
+            'energetica': currentLanguage === 'es' ? 'Energéticas' : 'Energy Drinks',
+            'bebida': currentLanguage === 'es' ? 'Bebidas' : 'Drinks'
         };
         
         return categoryNames[category] || category;
@@ -3150,7 +3618,7 @@
         promoCards.innerHTML = '';
         
         if (todayPromotions.length === 0) {
-            promoCards.innerHTML = '<p>No hay promociones para hoy.</p>';
+            promoCards.innerHTML = `<p>${currentLanguage === 'es' ? 'No hay promociones para hoy.' : 'No promotions for today.'}</p>`;
             return;
         }
         
@@ -3158,12 +3626,12 @@
             promoCards.innerHTML += `
                 <div class="promo-card">
                     <div class="promo-header">
-                        <div class="promo-day">${promo.day}</div>
-                        <div class="promo-time"><i class="fas fa-clock"></i> ${promo.time}</div>
+                        <div class="promo-day">${currentLanguage === 'es' ? promo.day : promo.day_en}</div>
+                        <div class="promo-time"><i class="fas fa-clock"></i> ${currentLanguage === 'es' ? promo.time : (promo.time_en || promo.time)}</div>
                     </div>
                     <div class="promo-body">
-                        <h3 class="promo-title">${promo.title}</h3>
-                        <p class="promo-description">${promo.description}</p>
+                        <h3 class="promo-title">${currentLanguage === 'es' ? promo.title : promo.title_en}</h3>
+                        <p class="promo-description">${currentLanguage === 'es' ? promo.description : promo.description_en}</p>
                         <div class="promo-products">
                             ${promo.products.map(product => `<span class="promo-product">${product}</span>`).join('')}
                         </div>
@@ -3181,17 +3649,17 @@
             septemberPromos.innerHTML += `
                 <div class="promo-card">
                     <div class="promo-header" style="background: var(--primary);">
-                        <div class="promo-day">Fiestas Patrias</div>
-                        <div class="promo-time"><i class="fas fa-clock"></i> ${promo.time}</div>
+                        <div class="promo-day">${currentLanguage === 'es' ? 'Fiestas Patrias' : 'National Holidays'}</div>
+                        <div class="promo-time"><i class="fas fa-clock"></i> ${currentLanguage === 'es' ? promo.time : promo.time_en}</div>
                     </div>
                     <div class="promo-body">
-                        <h3 class="promo-title">${promo.title}</h3>
-                        <p class="promo-description">${promo.description}</p>
+                        <h3 class="promo-title">${currentLanguage === 'es' ? promo.title : promo.title_en}</h3>
+                        <p class="promo-description">${currentLanguage === 'es' ? promo.description : promo.description_en}</p>
                         <div class="promo-products">
                             ${promo.products.map(product => `<span class="promo-product">${product}</span>`).join('')}
                         </div>
                         <div style="margin-top: 15px; font-weight: 600; color: var(--primary);">
-                            Precio: $${formatPrice(promo.price)}
+                            ${currentLanguage === 'es' ? 'Precio' : 'Price'}: $${formatPrice(promo.price)}
                         </div>
                     </div>
                 </div>
@@ -3222,17 +3690,17 @@
         // Actualizar indicador
         if (isOpen) {
             statusIndicator.classList.remove('status-closed');
-            statusText.textContent = 'Abierto';
+            statusText.textContent = currentLanguage === 'es' ? 'Abierto' : 'Open';
             
             // Calcular tiempo hasta cierre
             const timeUntilClose = closingTime - now;
             const hoursUntilClose = Math.floor(timeUntilClose / (1000 * 60 * 60));
             const minutesUntilClose = Math.floor((timeUntilClose % (1000 * 60 * 60)) / (1000 * 60));
             
-            countdown.textContent = `Cierra en ${hoursUntilClose}h ${minutesUntilClose}m`;
+            countdown.textContent = `${currentLanguage === 'es' ? 'Cierra en' : 'Closes in'} ${hoursUntilClose}h ${minutesUntilClose}m`;
         } else {
             statusIndicator.classList.add('status-closed');
-            statusText.textContent = 'Cerrado';
+            statusText.textContent = currentLanguage === 'es' ? 'Cerrado' : 'Closed';
             
             // Calcular tiempo hasta apertura
             let openingTime = new Date(now);
@@ -3260,7 +3728,7 @@
             const hoursUntilOpen = Math.floor(timeUntilOpen / (1000 * 60 * 60));
             const minutesUntilOpen = Math.floor((timeUntilOpen % (1000 * 60 * 60)) / (1000 * 60));
             
-            countdown.textContent = `Abre en ${hoursUntilOpen}h ${minutesUntilOpen}m`;
+            countdown.textContent = `${currentLanguage === 'es' ? 'Abre en' : 'Opens in'} ${hoursUntilOpen}h ${minutesUntilOpen}m`;
         }
     }
 
@@ -3281,6 +3749,8 @@
     function loadUserData() {
         const savedCart = localStorage.getItem('cart');
         const savedFavorites = localStorage.getItem('favorites');
+        const savedLanguage = localStorage.getItem('language');
+        const savedDarkMode = localStorage.getItem('darkMode');
         
         if (savedCart) {
             cart = JSON.parse(savedCart);
@@ -3291,12 +3761,24 @@
             favorites = JSON.parse(savedFavorites);
             updateFavoritesCount();
         }
+        
+        if (savedLanguage) {
+            changeLanguage(savedLanguage);
+        }
+        
+        if (savedDarkMode === 'true') {
+            isDarkMode = true;
+            body.classList.add('bar-mode');
+            themeToggle.classList.add('dark');
+        }
     }
 
     // Guardar datos de usuario en localStorage
     function saveUserData() {
         localStorage.setItem('cart', JSON.stringify(cart));
         localStorage.setItem('favorites', JSON.stringify(favorites));
+        localStorage.setItem('language', currentLanguage);
+        localStorage.setItem('darkMode', isDarkMode);
     }
 
     // Mostrar productos en el catálogo
@@ -3304,7 +3786,7 @@
         productsContainer.innerHTML = '';
         
         if (productsToShow.length === 0) {
-            productsContainer.innerHTML = '<p class="no-products">No se encontraron productos</p>';
+            productsContainer.innerHTML = `<p class="no-products">${currentLanguage === 'es' ? 'No se encontraron productos' : 'No products found'}</p>`;
             return;
         }
         
@@ -3328,18 +3810,18 @@
             
             productCard.innerHTML = `
                 <div class="product-image-container">
-                    <img src="${product.images[0]}" alt="${product.name}" class="product-image">
+                    <img src="${product.images[0]}" alt="${currentLanguage === 'es' ? product.name : product.name_en}" class="product-image">
                     <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${product.id}">
                         <i class="fas fa-heart"></i>
                     </button>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">${product.name}</h3>
-                    <p class="product-description">${product.description}</p>
+                    <h3 class="product-title">${currentLanguage === 'es' ? product.name : product.name_en}</h3>
+                    <p class="product-description">${currentLanguage === 'es' ? product.description : product.description_en}</p>
                     <div class="product-price">$${formatPrice(product.price)}</div>
                     ${sizeOptions}
                     <button class="add-to-cart" data-id="${product.id}">
-                        <i class="fas fa-shopping-cart"></i> Agregar
+                        <i class="fas fa-shopping-cart"></i> ${currentLanguage === 'es' ? 'Agregar' : 'Add'}
                     </button>
                 </div>
             `;
@@ -3435,8 +3917,11 @@
         
         // Luego aplicar los demás filtros
         filteredProducts = productsToFilter.filter(product => {
-            const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
-                                 product.description.toLowerCase().includes(searchTerm);
+            const nameToSearch = currentLanguage === 'es' ? product.name.toLowerCase() : product.name_en.toLowerCase();
+            const descToSearch = currentLanguage === 'es' ? product.description.toLowerCase() : product.description_en.toLowerCase();
+            
+            const matchesSearch = nameToSearch.includes(searchTerm) || 
+                                 descToSearch.includes(searchTerm);
             const matchesCategory = selectedCategory === 'all' || selectedCategory === product.category;
             const matchesPrice = product.price <= maxPrice;
             
@@ -3446,7 +3931,11 @@
         // Ordenar productos
         switch(sortOption) {
             case 'name':
-                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                filteredProducts.sort((a, b) => {
+                    const nameA = currentLanguage === 'es' ? a.name : a.name_en;
+                    const nameB = currentLanguage === 'es' ? b.name : b.name_en;
+                    return nameA.localeCompare(nameB);
+                });
                 break;
             case 'price-asc':
                 filteredProducts.sort((a, b) => a.price - b.price);
@@ -3470,15 +3959,15 @@
         product.images.forEach(image => {
             detailImages.innerHTML += `
                 <div class="swiper-slide">
-                    <img src="${image}" alt="${product.name}">
+                    <img src="${image}" alt="${currentLanguage === 'es' ? product.name : product.name_en}">
                 </div>
             `;
         });
         
         // Actualizar información del producto
-        detailTitle.textContent = product.name;
+        detailTitle.textContent = currentLanguage === 'es' ? product.name : product.name_en;
         detailPrice.textContent = `$${formatPrice(product.price)}`;
-        detailDescription.textContent = product.description;
+        detailDescription.textContent = currentLanguage === 'es' ? product.description : product.description_en;
         
         // Calorías según tamaño (si aplica)
         if (product.sizes) {
@@ -3565,7 +4054,7 @@
             // Agregar nuevo item al carrito
             cart.push({
                 id: product.id,
-                name: product.name,
+                name: currentLanguage === 'es' ? product.name : product.name_en,
                 price: finalPrice,
                 image: product.images[0],
                 size: selectedSize,
@@ -3609,7 +4098,7 @@
             cartItems.innerHTML = `
                 <div class="empty-cart">
                     <i class="fas fa-shopping-cart"></i>
-                    <p>Tu carrito está vacío</p>
+                    <p>${currentLanguage === 'es' ? 'Tu carrito está vacío' : 'Your cart is empty'}</p>
                 </div>
             `;
         } else {
@@ -3668,7 +4157,7 @@
     // Abrir checkout
     function openCheckout() {
         if (cart.length === 0) {
-            alert('Tu carrito está vacío');
+            alert(currentLanguage === 'es' ? 'Tu carrito está vacío' : 'Your cart is empty');
             return;
         }
         
@@ -3699,7 +4188,7 @@
             if (deliveryOption === 'delivery' || deliveryOption === 'robot') {
                 const address = document.getElementById('deliveryAddress').value;
                 if (!address) {
-                    alert('Por favor ingresa una dirección de envío');
+                    alert(currentLanguage === 'es' ? 'Por favor ingresa una dirección de envío' : 'Please enter a delivery address');
                     return;
                 }
             }
@@ -3714,7 +4203,7 @@
             if (!document.getElementById('cardNumber').value || 
                 !document.getElementById('cardExpiry').value || 
                 !document.getElementById('cardCVC').value) {
-                alert('Por favor completa todos los campos de pago');
+                alert(currentLanguage === 'es' ? 'Por favor completa todos los campos de pago' : 'Please complete all payment fields');
                 return;
             }
             
