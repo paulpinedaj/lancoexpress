@@ -1990,8 +1990,39 @@
 
         @media (max-width: 480px) {
             .products {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
+            
+            .product-info {
+            padding: 10px;
+            }
+
+            .product-image-container {
+            height: 120px;
+            }
+
+            .product-title {
+            margin-bottom: 5px;
+            }
+
+            .product-description {
+            margin-bottom: 10px;
+            }
+
+            .mobile-filters-toggle {
+            margin-bottom: 10px;
+            }
+
+
+            .product-meta {
+            grid-template-columns: repeat(2, 1fr);
+            }
+
+
+            .meta-item {
+            text-align: center;
+            }
+
 
             .detail-size-options {
                 flex-direction: column;
@@ -2682,9 +2713,9 @@
                 "https://content-cocina.lecturas.com/medio/2024/09/24/tacos-mexicanos-istock-1146906219_81e9dead_iStock_240924110357_1200x1200.jpg",
             ],
             sizes: [
-                { name: "3 Unid", price: 5990, calories: 450 },
-                { name: "5 Unid", price: 8990, calories: 750 },
-                { name: "8 Unid", price: 12990, calories: 1200 }
+                { name: "3 U", price: 5990, calories: 450 },
+                { name: "5 U", price: 8990, calories: 750 },
+                { name: "8 U", price: 12990, calories: 1200 }
             ],
             preparationTime: "15-20 min",
             rating: "4.8/5",
