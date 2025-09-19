@@ -3140,8 +3140,271 @@ body.night-mode .promo-counter {
     </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+
 <script>
-    // Base de datos de productos
+    // ==============================================
+    // DICCIONARIOS DE IDIOMAS
+    // ==============================================
+    const translations = {
+        es: {
+            // Textos de interfaz
+            "tabs.food": "Comida",
+            "tabs.bar": "Bar & Tragos",
+            "tabs.promotions": "Promociones",
+            "tabs.september": "18 Septiembre",
+            "tabs.orders": "Mis Pedidos",
+            "tabs.profile": "Mi Cuenta",
+            "filters.filters": "Filtros",
+            "filters.categories": "Categorías",
+            "filters.price": "Precio",
+            "filters.upTo": "Hasta",
+            "filters.sortBy": "Ordenar por",
+            "filters.name": "Nombre",
+            "filters.priceLowToHigh": "Precio: menor a mayor",
+            "filters.priceHighToLow": "Precio: mayor a menor",
+            "filters.applyFilters": "Aplicar Filtros",
+            "promotions.title": "Promociones de la Semana",
+            "september.title": "Especial Fiestas Patrias",
+            "product.calories": "Calorías",
+            "product.preparationTime": "Tiempo preparación",
+            "product.rating": "Valoración",
+            "product.weight": "Peso",
+            "product.selectSize": "Selecciona un tamaño:",
+            "cart.addToCart": "Agregar al Carrito",
+            "cart.yourCart": "Tu Carrito",
+            "cart.total": "Total:",
+            "cart.checkout": "Finalizar Compra",
+            "cart.emptyCart": "Tu carrito está vacío",
+            "checkout.deliveryMethod": "Método de entrega",
+            "checkout.pickup": "Retiro en local",
+            "checkout.delivery": "Envío a domicilio",
+            "checkout.robotDelivery": "Envío con Robot",
+            "checkout.free": "Gratis",
+            "checkout.paymentMethod": "Método de pago",
+            "checkout.cardNumber": "Número de tarjeta",
+            "checkout.cardExpiry": "Fecha de expiración",
+            "checkout.cardCVC": "CVC",
+            "checkout.coupon": "Código de descuento",
+            "checkout.applyCoupon": "Aplicar",
+            "checkout.payNow": "Pagar ahora",
+            "checkout.orderReceived": "¡Pedido Recibido!",
+            "checkout.continueShopping": "Continuar comprando",
+            "search.placeholder": "Buscar productos...",
+            "notification.addedToCart": "Producto agregado al carrito!",
+            "store.open": "Abierto",
+            "store.closed": "Cerrado",
+            "store.closesIn": "Cierra en",
+            "store.opensIn": "Abre en",
+            "promoCounter.text": "¡Oferta del día! Termina en:",
+            "noProducts": "No se encontraron productos",
+            "construction.title": "Sección en construcción",
+            "construction.message": "Esta funcionalidad estará disponible pronto.",
+            "add": "Agregar"
+        },
+        en: {
+            // Textos de interfaz en inglés
+            "tabs.food": "Food",
+            "tabs.bar": "Bar & Drinks",
+            "tabs.promotions": "Promotions",
+            "tabs.september": "September 18",
+            "tabs.orders": "My Orders",
+            "tabs.profile": "My Account",
+            "filters.filters": "Filters",
+            "filters.categories": "Categories",
+            "filters.price": "Price",
+            "filters.upTo": "Up to",
+            "filters.sortBy": "Sort by",
+            "filters.name": "Name",
+            "filters.priceLowToHigh": "Price: low to high",
+            "filters.priceHighToLow": "Price: high to low",
+            "filters.applyFilters": "Apply Filters",
+            "promotions.title": "Weekly Promotions",
+            "september.title": "National Holiday Specials",
+            "product.calories": "Calories",
+            "product.preparationTime": "Preparation time",
+            "product.rating": "Rating",
+            "product.weight": "Weight",
+            "product.selectSize": "Select a size:",
+            "cart.addToCart": "Add to Cart",
+            "cart.yourCart": "Your Cart",
+            "cart.total": "Total:",
+            "cart.checkout": "Checkout",
+            "cart.emptyCart": "Your cart is empty",
+            "checkout.deliveryMethod": "Delivery method",
+            "checkout.pickup": "Store pickup",
+            "checkout.delivery": "Home delivery",
+            "checkout.robotDelivery": "Robot delivery",
+            "checkout.free": "Free",
+            "checkout.paymentMethod": "Payment method",
+            "checkout.cardNumber": "Card number",
+            "checkout.cardExpiry": "Expiration date",
+            "checkout.cardCVC": "CVC",
+            "checkout.coupon": "Discount code",
+            "checkout.applyCoupon": "Apply",
+            "checkout.payNow": "Pay now",
+            "checkout.orderReceived": "Order Received!",
+            "checkout.continueShopping": "Continue shopping",
+            "search.placeholder": "Search products...",
+            "notification.addedToCart": "Product added to cart!",
+            "store.open": "Open",
+            "store.closed": "Closed",
+            "store.closesIn": "Closes in",
+            "store.opensIn": "Opens in",
+            "promoCounter.text": "Daily offer! Ends in:",
+            "noProducts": "No products found",
+            "construction.title": "Section under construction",
+            "construction.message": "This functionality will be available soon.",
+            "add": "Add"
+        }
+    };
+
+    // Textos de productos en ambos idiomas
+    const productTranslations = {
+        es: {
+            1: {
+                name: "Pizza Margarita",
+                description: "Salsa de tomate, mozzarella y albahaca fresca. Un clásico italiano con ingredientes de la más alta calidad."
+            },
+            2: {
+                name: "Pizza Pepperoni",
+                description: "Salsa de tomate, mozzarella y pepperoni. El favorito de todos con un toque picante perfecto."
+            },
+            3: {
+                name: "Sandwich Club",
+                description: "Pollo, tocino, lechuga, tomate y mayonesa. Un sandwich clásico lleno de sabor y texturas."
+            },
+            4: {
+                name: "Completo Italiano",
+                description: "Salchicha, palta, tomate y mayonesa. El clásico completo chileno con un toque italiano."
+            },
+            5: {
+                name: "Tabla Mixta",
+                description: "Embutidos, quesos, frutos secos y pan. Perfecta para compartir en cualquier ocasión."
+            },
+            6: {
+                name: "Coca-Cola",
+                description: "Bebida gaseosa Lata 350. Refrescante y perfecta para acompañar cualquier comida."
+            },
+            7: {
+                name: "Pizza Hawaiana",
+                description: "Salsa de tomate, mozzarella, jamón y piña. La combinación perfecta de dulce y salado."
+            },
+            8: {
+                name: "Sandwich Veggie",
+                description: "Verduras asadas, queso y pesto. Una opción vegetariana llena de sabor y color."
+            },
+            9: {
+                name: "Cerveza Artesanal",
+                description: "Cerveza rubia artesanal con notas cítricas y amargor balanceado. Elaborada localmente."
+            },
+            10: {
+                name: "Vino Tinto Reserva",
+                description: "Vino tinto reserva con cuerpo, notas de frutos rojos y taninos suaves. Perfecto para carnes."
+            },
+            11: {
+                name: "Margarita Clásica",
+                description: "Tequila, triple sec and jugo de limón fresco. Servida en vaso escarchado con sal y lima."
+            },
+            12: {
+                name: "Cuba Libre",
+                description: "Ron, refresco de cola y un toque de lima. Un clásico refrescante para cualquier ocasión."
+            },
+            13: {
+                name: "Vodka con Energética",
+                description: "Vodka premium mezclado con bebida energética. Ideal para mantener la energía toda la noche."
+            },
+            14: {
+                name: "Energética Monster",
+                description: "Bebida energética para recuperar fuerzas. Sabor original en lata."
+            },
+            15: {
+                name: "Tacos al Pastor",
+                description: "Tacos de cerdo marinado con piña, cebolla y cilantro. Salsa picante al gusto."
+            },
+            16: {
+                name: "Hamburguesa Clásica",
+                description: "Carne de res, queso cheddar, lechuga, tomate y salsa especial. Pan brioche tostado."
+            },
+            17: {
+                name: "Papas Fritas",
+                description: "Papas fritas crujientes"
+            }
+        },
+        en: {
+            1: {
+                name: "Margherita Pizza",
+                description: "Tomato sauce, mozzarella and fresh basil. An Italian classic with the highest quality ingredients."
+            },
+            2: {
+                name: "Pepperoni Pizza",
+                description: "Tomato sauce, mozzarella and pepperoni. Everyone's favorite with the perfect spicy touch."
+            },
+            3: {
+                name: "Club Sandwich",
+                description: "Chicken, bacon, lettuce, tomato and mayonnaise. A classic sandwich full of flavor and textures."
+            },
+            4: {
+                name: "Italian Hot Dog",
+                description: "Sausage, avocado, tomato and mayonnaise. The classic Chilean hot dog with an Italian twist."
+            },
+            5: {
+                name: "Mixed Board",
+                description: "Cold cuts, cheeses, nuts and bread. Perfect for sharing on any occasion."
+            },
+            6: {
+                name: "Coca-Cola",
+                description: "350ml soda can. Refreshing and perfect to accompany any meal."
+            },
+            7: {
+                name: "Hawaiian Pizza",
+                description: "Tomato sauce, mozzarella, ham and pineapple. The perfect combination of sweet and savory."
+            },
+            8: {
+                name: "Veggie Sandwich",
+                description: "Grilled vegetables, cheese and pesto. A vegetarian option full of flavor and color."
+            },
+            9: {
+                name: "Craft Beer",
+                description: "Blonde craft beer with citrus notes and balanced bitterness. Locally brewed."
+            },
+            10: {
+                name: "Reserve Red Wine",
+                description: "Full-bodied reserve red wine with red fruit notes and soft tannins. Perfect for meats."
+            },
+            11: {
+                name: "Classic Margarita",
+                description: "Tequila, triple sec and fresh lemon juice. Served in a salt-rimmed glass with lime."
+            },
+            12: {
+                name: "Cuba Libre",
+                description: "Rum, cola and a touch of lime. A refreshing classic for any occasion."
+            },
+            13: {
+                name: "Vodka with Energy Drink",
+                description: "Premium vodka mixed with energy drink. Ideal to keep energy up all night."
+            },
+            14: {
+                name: "Monster Energy",
+                description: "Energy drink to regain strength. Original flavor in a can."
+            },
+            15: {
+                name: "Al Pastor Tacos",
+                description: "Marinated pork tacos with pineapple, onion and cilantro. Spicy sauce to taste."
+            },
+            16: {
+                name: "Classic Burger",
+                description: "Beef, cheddar cheese, lettuce, tomato and special sauce. Toasted brioche bun."
+            },
+            17: {
+                name: "French Fries",
+                description: "Crispy french fries"
+            }
+        }
+    };
+
+    // ==============================================
+    // BASE DE DATOS DE PRODUCTOS
+    // ==============================================
     const products = [
         {
             id: 1,
@@ -3509,7 +3772,9 @@ body.night-mode .promo-counter {
         }
     ];
 
-    // Variables globales
+    // ==============================================
+    // VARIABLES GLOBALES
+    // ==============================================
     let cart = [];
     let favorites = [];
     let filteredProducts = [...products];
@@ -3521,8 +3786,11 @@ body.night-mode .promo-counter {
     let currentTab = "products";
     let storeStatusInterval = null;
     let promoCounterInterval = null;
+    let currentLanguage = 'es';
 
-    // Elementos del DOM
+    // ==============================================
+    // ELEMENTOS DEL DOM
+    // ==============================================
     const productsContainer = document.getElementById('productsContainer');
     const cartIcon = document.getElementById('cartIcon');
     const cartModal = document.getElementById('cartModal');
@@ -3579,30 +3847,155 @@ body.night-mode .promo-counter {
     const hoursElement = document.getElementById('hours');
     const minutesElement = document.getElementById('minutes');
     const secondsElement = document.getElementById('seconds');
+    const languageBtnDesktop = document.getElementById('languageBtnDesktop');
+    const languageDropdownDesktop = document.getElementById('languageDropdownDesktop');
+    const languageBtnMobile = document.getElementById('languageBtnMobile');
+    const languageDropdownMobile = document.getElementById('languageDropdownMobile');
     const body = document.body;
 
+    // ==============================================
+    // FUNCIONES DE IDIOMA
+    // ==============================================
+    // Función para cambiar idioma
+    function changeLanguage(lang) {
+        currentLanguage = lang;
+        
+        // Actualizar botones de idioma
+        updateLanguageButton(languageBtnDesktop, lang);
+        updateLanguageButton(languageBtnMobile, lang);
+        
+        // Guardar preferencia
+        localStorage.setItem('language', lang);
+        
+        // Actualizar todos los textos de la interfaz
+        updateInterfaceLanguage();
+        
+        // Actualizar textos de productos
+        updateProductLanguage();
+    }
+
+    // Actualizar textos de la interfaz
+    function updateInterfaceLanguage() {
+        // Actualizar todos los elementos con atributo data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[currentLanguage][key]) {
+                element.textContent = translations[currentLanguage][key];
+            }
+        });
+        
+        // Actualizar placeholders
+        searchInput.placeholder = translations[currentLanguage]['search.placeholder'];
+        
+        // Actualizar notificación
+        const notificationText = notification.querySelector('span');
+        if (notificationText) {
+            notificationText.textContent = translations[currentLanguage]['notification.addedToCart'];
+        }
+        
+        // Actualizar estado de tienda
+        updateStoreStatusText();
+    }
+
+    // Actualizar textos de estado de tienda
+    function updateStoreStatusText() {
+        const now = new Date();
+        const hour = now.getHours();
+        
+        let isOpen = false;
+        if (now.getDay() >= 1 && now.getDay() <= 5) {
+            isOpen = hour >= 10 && hour < 22;
+        } else {
+            isOpen = hour >= 11 && hour < 23;
+        }
+        
+        if (isOpen) {
+            statusText.textContent = translations[currentLanguage]['store.open'];
+        } else {
+            statusText.textContent = translations[currentLanguage]['store.closed'];
+        }
+        
+        // Forzar actualización del contador
+        updateStoreStatus();
+    }
+
+    // Actualizar textos de productos
+    function updateProductLanguage() {
+        // Si estamos en la vista de productos, actualizarlos
+        if (currentTab === 'products' || currentTab === 'bar') {
+            filterProducts();
+        }
+        
+        // Si hay un modal de producto abierto, actualizarlo
+        if (productDetailModal.classList.contains('open') && currentProduct) {
+            openProductDetail(currentProduct);
+        }
+        
+        // Actualizar carrito si está abierto
+        if (cartModal.classList.contains('open')) {
+            updateCart();
+        }
+        
+        // Actualizar promociones
+        displayPromotions();
+        displaySeptemberPromotions();
+        
+        // Actualizar texto del contador promocional
+        if (promoCounterText) {
+            promoCounterText.textContent = translations[currentLanguage]['promoCounter.text'];
+        }
+    }
+
+    // Función auxiliar para actualizar botones de idioma
+    function updateLanguageButton(button, lang) {
+        button.innerHTML = lang.toUpperCase() + ' <i class="fas fa-chevron-down"></i>';
+    }
+
+    // Configurar event listeners para los dropdowns de idioma
+    function setupLanguageDropdown(button, dropdown) {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('show');
+        });
+        
+        dropdown.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', () => {
+                changeLanguage(option.dataset.lang);
+                dropdown.classList.remove('show');
+            });
+        });
+    }
+
+    // ==============================================
+    // FUNCIONES PRINCIPALES
+    // ==============================================
     // Función para formatear precios en formato chileno
     function formatPrice(price) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
-
-
-
     // Inicializar la tienda
     function initStore() {
-       setupEventListeners();
+        setupEventListeners();
         loadUserData();
+        
+        // Cargar idioma guardado
+        const savedLanguage = localStorage.getItem('language');
+        if (savedLanguage) {
+            changeLanguage(savedLanguage);
+        } else {
+            // Aplicar idioma por defecto
+            updateInterfaceLanguage();
+        }
+        
         updateStoreStatus();
         displayPromotions();
         displaySeptemberPromotions();
         startPromoCounter();
         
-        // Filtrar productos al iniciar (en lugar de mostrar todos)
+        // Filtrar productos al iniciar
         updateCategoryFilters();
-
-        // Iniciar el intervalo para actualizar el estado de la tienda
-        storeStatusInterval = setInterval(updateStoreStatus, 60000); // Actualizar cada minuto
+        storeStatusInterval = setInterval(updateStoreStatus, 60000);
     }
 
     // Configurar event listeners
@@ -3684,6 +4077,20 @@ body.night-mode .promo-counter {
         closeFilters.addEventListener('click', closeMobileFilters);
         filtersOverlay.addEventListener('click', closeMobileFilters);
         applyFilters.addEventListener('click', closeMobileFilters);
+        
+        // Configurar dropdowns de idioma
+        setupLanguageDropdown(languageBtnDesktop, languageDropdownDesktop);
+        setupLanguageDropdown(languageBtnMobile, languageDropdownMobile);
+        
+        // Cerrar dropdowns al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!languageBtnDesktop.contains(e.target) && !languageDropdownDesktop.contains(e.target)) {
+                languageDropdownDesktop.classList.remove('show');
+            }
+            if (!languageBtnMobile.contains(e.target) && !languageDropdownMobile.contains(e.target)) {
+                languageDropdownMobile.classList.remove('show');
+            }
+        });
     }
 
     // Cerrar filtros móviles
@@ -3715,7 +4122,7 @@ body.night-mode .promo-counter {
             if (diff <= 0) {
                 clearInterval(promoCounterInterval);
                 // La promoción ha terminado, puedes hacer algo aquí
-                promoCounterText.textContent = "¡La oferta del día ha finalizado!";
+                promoCounterText.textContent = currentLanguage === 'es' ? "¡La oferta del día ha finalizado!" : "Today's offer has ended!";
                 return;
             }
             
@@ -3758,8 +4165,8 @@ body.night-mode .promo-counter {
             productsContainer.innerHTML = `
                 <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                     <i class="fas fa-tools" style="font-size: 3rem; color: var(--gray); margin-bottom: 20px;"></i>
-                    <h3>Sección en construcción</h3>
-                    <p>Esta funcionalidad estará disponible pronto.</p>
+                    <h3>${translations[currentLanguage]['construction.title']}</h3>
+                    <p>${translations[currentLanguage]['construction.message']}</p>
                 </div>
             `;
         }
@@ -3782,7 +4189,7 @@ body.night-mode .promo-counter {
             <label class="custom-radio">
                 <input type="radio" name="categoryFilter" value="all" checked>
                 <span class="radiomark"></span>
-                Todas las categorías
+                ${currentLanguage === 'es' ? 'Todas las categorías' : 'All categories'}
             </label>
         `;
         
@@ -3810,23 +4217,41 @@ body.night-mode .promo-counter {
     // Obtener nombre legible de categoría
     function getCategoryName(category) {
         const categoryNames = {
-            'pizza': 'Pizzas',
-            'sandwich': 'Sándwiches',
-            'completo': 'Completos',
-            'tabla': 'Tablas',
-            'tacos': 'Tacos',
-            'hamburguesa': 'Hamburguesas',
-            'papas': 'Papas Fritas',
-            'cerveza': 'Cervezas',
-            'vino': 'Vinos',
-            'tequila': 'Tequila',
-            'ron': 'Ron',
-            'vodka': 'Vodka',
-            'energetica': 'Energéticas',
-            'bebida': 'Bebidas'
+            'es': {
+                'pizza': 'Pizzas',
+                'sandwich': 'Sándwiches',
+                'completo': 'Completos',
+                'tabla': 'Tablas',
+                'tacos': 'Tacos',
+                'hamburguesa': 'Hamburguesas',
+                'papas': 'Papas Fritas',
+                'cerveza': 'Cervezas',
+                'vino': 'Vinos',
+                'tequila': 'Tequila',
+                'ron': 'Ron',
+                'vodka': 'Vodka',
+                'energetica': 'Energéticas',
+                'bebida': 'Bebidas'
+            },
+            'en': {
+                'pizza': 'Pizzas',
+                'sandwich': 'Sandwiches',
+                'completo': 'Hot Dogs',
+                'tabla': 'Boards',
+                'tacos': 'Tacos',
+                'hamburguesa': 'Burgers',
+                'papas': 'French Fries',
+                'cerveza': 'Beers',
+                'vino': 'Wines',
+                'tequila': 'Tequila',
+                'ron': 'Rum',
+                'vodka': 'Vodka',
+                'energetica': 'Energy Drinks',
+                'bebida': 'Drinks'
+            }
         };
         
-        return categoryNames[category] || category;
+        return categoryNames[currentLanguage][category] || category;
     }
 
     // Mostrar promociones
@@ -3840,7 +4265,7 @@ body.night-mode .promo-counter {
         promoCards.innerHTML = '';
         
         if (todayPromotions.length === 0) {
-            promoCards.innerHTML = '<p>No hay promociones para hoy.</p>';
+            promoCards.innerHTML = `<p>${currentLanguage === 'es' ? 'No hay promociones para hoy.' : 'No promotions for today.'}</p>`;
             return;
         }
         
@@ -3871,7 +4296,7 @@ body.night-mode .promo-counter {
             septemberPromos.innerHTML += `
                 <div class="promo-card">
                     <div class="promo-header" style="background: var(--primary);">
-                        <div class="promo-day">Fiestas Patrias</div>
+                        <div class="promo-day">${currentLanguage === 'es' ? 'Fiestas Patrias' : 'National Holidays'}</div>
                         <div class="promo-time"><i class="fas fa-clock"></i> ${promo.time}</div>
                     </div>
                     <div class="promo-body">
@@ -3881,7 +4306,7 @@ body.night-mode .promo-counter {
                             ${promo.products.map(product => `<span class="promo-product">${product}</span>`).join('')}
                         </div>
                         <div style="margin-top: 15px; font-weight: 600; color: var(--primary);">
-                            Precio: $${formatPrice(promo.price)}
+                            ${currentLanguage === 'es' ? 'Precio' : 'Price'}: $${formatPrice(promo.price)}
                         </div>
                     </div>
                 </div>
@@ -3912,17 +4337,17 @@ body.night-mode .promo-counter {
         // Actualizar indicador
         if (isOpen) {
             statusIndicator.classList.remove('status-closed');
-            statusText.textContent = 'Abierto';
+            statusText.textContent = translations[currentLanguage]['store.open'];
             
             // Calcular tiempo hasta cierre
             const timeUntilClose = closingTime - now;
             const hoursUntilClose = Math.floor(timeUntilClose / (1000 * 60 * 60));
             const minutesUntilClose = Math.floor((timeUntilClose % (1000 * 60 * 60)) / (1000 * 60));
             
-            countdown.textContent = `Cierra en ${hoursUntilClose}h ${minutesUntilClose}m`;
+            countdown.textContent = `${translations[currentLanguage]['store.closesIn']} ${hoursUntilClose}h ${minutesUntilClose}m`;
         } else {
             statusIndicator.classList.add('status-closed');
-            statusText.textContent = 'Cerrado';
+            statusText.textContent = translations[currentLanguage]['store.closed'];
             
             // Calcular tiempo hasta apertura
             let openingTime = new Date(now);
@@ -3950,7 +4375,7 @@ body.night-mode .promo-counter {
             const hoursUntilOpen = Math.floor(timeUntilOpen / (1000 * 60 * 60));
             const minutesUntilOpen = Math.floor((timeUntilOpen % (1000 * 60 * 60)) / (1000 * 60));
             
-            countdown.textContent = `Abre en ${hoursUntilOpen}h ${minutesUntilOpen}m`;
+            countdown.textContent = `${translations[currentLanguage]['store.opensIn']} ${hoursUntilOpen}h ${minutesUntilOpen}m`;
         }
     }
 
@@ -3971,6 +4396,7 @@ body.night-mode .promo-counter {
     function loadUserData() {
         const savedCart = localStorage.getItem('cart');
         const savedFavorites = localStorage.getItem('favorites');
+        const savedLanguage = localStorage.getItem('language');
         
         if (savedCart) {
             cart = JSON.parse(savedCart);
@@ -3981,12 +4407,17 @@ body.night-mode .promo-counter {
             favorites = JSON.parse(savedFavorites);
             updateFavoritesCount();
         }
+        
+        if (savedLanguage) {
+            changeLanguage(savedLanguage);
+        }
     }
 
     // Guardar datos de usuario en localStorage
     function saveUserData() {
         localStorage.setItem('cart', JSON.stringify(cart));
         localStorage.setItem('favorites', JSON.stringify(favorites));
+        localStorage.setItem('language', currentLanguage);
     }
 
     // Mostrar productos en el catálogo
@@ -3994,7 +4425,7 @@ body.night-mode .promo-counter {
         productsContainer.innerHTML = '';
         
         if (productsToShow.length === 0) {
-            productsContainer.innerHTML = '<p class="no-products">No se encontraron productos</p>';
+            productsContainer.innerHTML = `<p class="no-products">${translations[currentLanguage]['noProducts']}</p>`;
             return;
         }
         
@@ -4002,6 +4433,9 @@ body.night-mode .promo-counter {
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
             productCard.dataset.id = product.id;
+            
+            // Obtener texto traducido para el producto
+            const translatedProduct = productTranslations[currentLanguage][product.id] || product;
             
             let sizeOptions = '';
             if (product.sizes) {
@@ -4018,18 +4452,18 @@ body.night-mode .promo-counter {
             
             productCard.innerHTML = `
                 <div class="product-image-container">
-                    <img src="${product.images[0]}" alt="${product.name}" class="product-image">
+                    <img src="${product.images[0]}" alt="${translatedProduct.name}" class="product-image">
                     <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${product.id}">
                         <i class="fas fa-heart"></i>
                     </button>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">${product.name}</h3>
-                    <p class="product-description">${product.description}</p>
+                    <h3 class="product-title">${translatedProduct.name}</h3>
+                    <p class="product-description">${translatedProduct.description}</p>
                     <div class="product-price">$${formatPrice(product.price)}</div>
                     ${sizeOptions}
                     <button class="add-to-cart" data-id="${product.id}">
-                        <i class="fas fa-shopping-cart"></i> Agregar
+                        <i class="fas fa-shopping-cart"></i> ${translations[currentLanguage]['add']}
                     </button>
                 </div>
             `;
@@ -4125,8 +4559,11 @@ body.night-mode .promo-counter {
         
         // Luego aplicar los demás filtros
         filteredProducts = productsToFilter.filter(product => {
-            const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
-                                 product.description.toLowerCase().includes(searchTerm);
+            // Obtener texto traducido para búsqueda
+            const translatedProduct = productTranslations[currentLanguage][product.id] || product;
+            
+            const matchesSearch = translatedProduct.name.toLowerCase().includes(searchTerm) || 
+                                 translatedProduct.description.toLowerCase().includes(searchTerm);
             const matchesCategory = selectedCategory === 'all' || selectedCategory === product.category;
             const matchesPrice = product.price <= maxPrice;
             
@@ -4136,7 +4573,11 @@ body.night-mode .promo-counter {
         // Ordenar productos
         switch(sortOption) {
             case 'name':
-                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                filteredProducts.sort((a, b) => {
+                    const aTranslated = productTranslations[currentLanguage][a.id] || a;
+                    const bTranslated = productTranslations[currentLanguage][b.id] || b;
+                    return aTranslated.name.localeCompare(bTranslated.name);
+                });
                 break;
             case 'price-asc':
                 filteredProducts.sort((a, b) => a.price - b.price);
@@ -4153,6 +4594,9 @@ body.night-mode .promo-counter {
     function openProductDetail(product) {
         currentProduct = product;
         
+        // Obtener texto traducido para el producto
+        const translatedProduct = productTranslations[currentLanguage][product.id] || product;
+        
         // Limpiar imágenes anteriores
         detailImages.innerHTML = '';
         
@@ -4160,15 +4604,15 @@ body.night-mode .promo-counter {
         product.images.forEach(image => {
             detailImages.innerHTML += `
                 <div class="swiper-slide">
-                    <img src="${image}" alt="${product.name}">
+                    <img src="${image}" alt="${translatedProduct.name}">
                 </div>
             `;
         });
         
         // Actualizar información del producto
-        detailTitle.textContent = product.name;
+        detailTitle.textContent = translatedProduct.name;
         detailPrice.textContent = `$${formatPrice(product.price)}`;
-        detailDescription.textContent = product.description;
+        detailDescription.textContent = translatedProduct.description;
         
         // Calorías según tamaño (si aplica)
         if (product.sizes) {
@@ -4252,10 +4696,13 @@ body.night-mode .promo-counter {
             // Incrementar cantidad si ya existe
             cart[existingItemIndex].quantity++;
         } else {
+            // Obtener texto traducido para el producto
+            const translatedProduct = productTranslations[currentLanguage][product.id] || product;
+            
             // Agregar nuevo item al carrito
             cart.push({
                 id: product.id,
-                name: product.name,
+                name: translatedProduct.name,
                 price: finalPrice,
                 image: product.images[0],
                 size: selectedSize,
@@ -4283,6 +4730,9 @@ body.night-mode .promo-counter {
 
     // Mostrar notificación de producto agregado
     function showNotification() {
+        const notificationText = notification.querySelector('span');
+        notificationText.textContent = translations[currentLanguage]['notification.addedToCart'];
+        
         notification.classList.add('show');
         setTimeout(() => {
             notification.classList.remove('show');
@@ -4299,7 +4749,7 @@ body.night-mode .promo-counter {
             cartItems.innerHTML = `
                 <div class="empty-cart">
                     <i class="fas fa-shopping-cart"></i>
-                    <p>Tu carrito está vacío</p>
+                    <p>${translations[currentLanguage]['cart.emptyCart']}</p>
                 </div>
             `;
         } else {
@@ -4358,7 +4808,7 @@ body.night-mode .promo-counter {
     // Abrir checkout
     function openCheckout() {
         if (cart.length === 0) {
-            alert('Tu carrito está vacío');
+            alert(currentLanguage === 'es' ? 'Tu carrito está vacío' : 'Your cart is empty');
             return;
         }
         
@@ -4389,7 +4839,7 @@ body.night-mode .promo-counter {
             if (deliveryOption === 'delivery' || deliveryOption === 'robot') {
                 const address = document.getElementById('deliveryAddress').value;
                 if (!address) {
-                    alert('Por favor ingresa una dirección de envío');
+                    alert(currentLanguage === 'es' ? 'Por favor ingresa una dirección de envío' : 'Please enter a delivery address');
                     return;
                 }
             }
@@ -4404,7 +4854,7 @@ body.night-mode .promo-counter {
             if (!document.getElementById('cardNumber').value || 
                 !document.getElementById('cardExpiry').value || 
                 !document.getElementById('cardCVC').value) {
-                alert('Por favor completa todos los campos de pago');
+                alert(currentLanguage === 'es' ? 'Por favor completa todos los campos de pago' : 'Please complete all payment fields');
                 return;
             }
             
@@ -4443,17 +4893,18 @@ body.night-mode .promo-counter {
 
 
 <script>
+
+
+
     // JavaScript para manejar los controles duplicados
     document.addEventListener('DOMContentLoaded', function() {
         // Elementos de desktop
         const themeToggleDesktop = document.getElementById('themeToggleDesktop');
-        const languageBtnDesktop = document.getElementById('languageBtnDesktop');
-        const languageDropdownDesktop = document.getElementById('languageDropdownDesktop');
+
         
         // Elementos de móvil
         const themeToggleMobile = document.getElementById('themeToggleMobile');
-        const languageBtnMobile = document.getElementById('languageBtnMobile');
-        const languageDropdownMobile = document.getElementById('languageDropdownMobile');
+
         
         // Sincronizar el estado del toggle
         let isNightMode = localStorage.getItem('nightMode') === 'true';
@@ -4482,61 +4933,15 @@ body.night-mode .promo-counter {
         // Event listeners para los toggles
         themeToggleDesktop.addEventListener('click', toggleNightMode);
         themeToggleMobile.addEventListener('click', toggleNightMode);
-        
-        // Función para cambiar idioma
-        function changeLanguage(lang) {
-            // Actualizar botones de idioma
-            updateLanguageButton(languageBtnDesktop, lang);
-            updateLanguageButton(languageBtnMobile, lang);
-            
-            // Guardar preferencia
-            localStorage.setItem('language', lang);
-            
-            // Aquí iría la lógica para cambiar los textos de la interfaz
-            console.log('Idioma cambiado a:', lang);
-        }
-        
-        function updateLanguageButton(button, lang) {
-            button.textContent = lang.toUpperCase() + ' ';
-            const chevron = document.createElement('i');
-            chevron.className = 'fas fa-chevron-down';
-            button.appendChild(chevron);
-        }
-        
-        // Event listeners para los dropdowns de idioma
-        function setupLanguageDropdown(button, dropdown) {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdown.classList.toggle('show');
-            });
-            
-            dropdown.querySelectorAll('.language-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    changeLanguage(option.dataset.lang);
-                    dropdown.classList.remove('show');
-                });
-            });
-        }
-        
-        setupLanguageDropdown(languageBtnDesktop, languageDropdownDesktop);
-        setupLanguageDropdown(languageBtnMobile, languageDropdownMobile);
-        
-        // Cerrar dropdowns al hacer clic fuera
-        document.addEventListener('click', (e) => {
-            if (!languageBtnDesktop.contains(e.target) && !languageDropdownDesktop.contains(e.target)) {
-                languageDropdownDesktop.classList.remove('show');
-            }
-            if (!languageBtnMobile.contains(e.target) && !languageDropdownMobile.contains(e.target)) {
-                languageDropdownMobile.classList.remove('show');
-            }
-        });
-        
-        // Cargar idioma guardado
-        const savedLanguage = localStorage.getItem('language');
-        if (savedLanguage) {
-            changeLanguage(savedLanguage);
-        }
+    
+    
     });
 </script>
 </body>
 </html>
+
+
+
+
+
+
